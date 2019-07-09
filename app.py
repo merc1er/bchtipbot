@@ -15,9 +15,6 @@ logging.basicConfig(
 DATABASE_PINK = 'db.sqlite3'
 
 
-init_database(DATABASE_PINK)
-
-
 def start(bot, update):
     user_id = update.message.from_user.id
     first_name = update.message.from_user.first_name
@@ -88,6 +85,8 @@ def h(bot, update):
     /tip [amount] [username]""")
 
 
+# Main program
+init_database(DATABASE_PINK)
 updater = Updater('892772409:AAGQk_Fyz3Uelwvhoq8yUmRXPUuTxnFFIfY')
 
 # Commands
