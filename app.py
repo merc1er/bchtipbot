@@ -1,7 +1,7 @@
 from telegram.ext import Updater, CommandHandler
 import sqlite3
 from bitcash import Key  # unused
-import os.path
+from db.init import init_database
 import logging
 
 
@@ -9,20 +9,10 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 
-# Init the database
-if not os.path.isfile('db.sqlite3'):
-    conn = sqlite3.connect('db.sqlite3')
-    cursor = conn.cursor()
-
-    cursor.execute("""CREATE TABLE users(
-        id INTEGER,
-        balance REAL
-    )""")
-    conn.commit()
-    conn.close()
-
-
+DATABASE_PINK = 'db.sqlite3'
 TEST_ADDRESS = 'bitcoincash:qp07y2dy5jvcpfgssfalajytm3xg7yz5fye2gu5cz9'
+
+init_database(DATABASE_PINK)
 
 
 def start(bot, update):
@@ -30,7 +20,7 @@ def start(bot, update):
     first_name = update.message.from_user.first_name
 
     # Check if user is already in the database
-    conn = sqlite3.connect('db.sqlite3')
+    conn = sqlite3.connect(DATABASE_PINK)
     cursor = conn.cursor()
     query = ('SELECT * FROM users WHERE id=' + str(user_id))
     response = cursor.execute(query).fetchone()
@@ -50,7 +40,7 @@ def deposit(bot, update):
 
 
 def balance(bot, update):
-    conn = sqlite3.connect('db.sqlite3')
+    conn = sqlite3.connect(DATABASE_PINK)
     cursor = conn.cursor()
     query = ('SELECT balance FROM users WHERE id={}').format(
                                                 update.message.from_user.id)
