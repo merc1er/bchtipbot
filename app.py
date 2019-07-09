@@ -8,6 +8,9 @@ logging.basicConfig(level=logging.DEBUG,
 
 
 # Init the database
+# conn = sqlite3.connect('db.sqlite3')
+# cursor = conn.cursor()
+
 # cursor.execute("""CREATE TABLE users(
 #     id INTEGER,
 #     balance REAL
@@ -19,8 +22,23 @@ TEST_ADDRESS = 'bitcoincash:qp07y2dy5jvcpfgssfalajytm3xg7yz5fye2gu5cz9'
 
 
 def start(bot, update):
-    update.message.reply_text(
-        'Hello {}'.format(update.message.from_user.first_name))
+    user_id = update.message.from_user.id
+    first_name = update.message.from_user.first_name
+
+    # Check if user is already in the database
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+    query = ('SELECT * FROM users WHERE id=' + str(user_id))
+    response = cursor.execute(query).fetchone()
+
+    if response:
+        conn.close()
+        update.message.reply_text('Hello again, ' + first_name)
+    else:
+        cursor.execute("""INSERT INTO users VALUES (?, ?)""", (user_id, 0))
+        conn.commit()
+        conn.close()
+        update.message.reply_text('Hello ' + first_name)
 
 
 def deposit(bot, update):
