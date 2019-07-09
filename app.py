@@ -76,10 +76,23 @@ def withdraw(bot, update):
     update.message.reply_text('I cannot do that yet 😅')
 
 
+def h(bot, update):
+    """ Displays the help text
+    """
+    update.message.reply_text("""List of commands:
+    /start
+    /help
+    /deposit
+    /balance
+    /withdraw [amount] [BCH address]
+    /tip [amount] [username]""")
+
+
 updater = Updater('892772409:AAGQk_Fyz3Uelwvhoq8yUmRXPUuTxnFFIfY')
 
 # Commands
 updater.dispatcher.add_handler(CommandHandler('start', start))
+updater.dispatcher.add_handler(CommandHandler('help', h))
 updater.dispatcher.add_handler(CommandHandler('deposit', deposit))
 updater.dispatcher.add_handler(CommandHandler('balance', balance))
 updater.dispatcher.add_handler(CommandHandler('withdraw', withdraw))
