@@ -92,16 +92,22 @@ def tip(but, update):
 
 
 
-# Main program
-init_database(DATABASE_PINK)
-updater = Updater('892772409:AAGQk_Fyz3Uelwvhoq8yUmRXPUuTxnFFIfY')
+def main():
+    """ Runs the bot
+    """
+    init_database(DATABASE_PINK)
+    updater = Updater('892772409:AAGQk_Fyz3Uelwvhoq8yUmRXPUuTxnFFIfY')
 
-# Commands
-updater.dispatcher.add_handler(CommandHandler('start', start))
-updater.dispatcher.add_handler(CommandHandler('help', help_command))
-updater.dispatcher.add_handler(CommandHandler('deposit', deposit))
-updater.dispatcher.add_handler(CommandHandler('balance', balance))
-updater.dispatcher.add_handler(CommandHandler('withdraw', withdraw))
+    # Commands
+    updater.dispatcher.add_handler(CommandHandler('start', start))
+    updater.dispatcher.add_handler(CommandHandler('help', help_command))
+    updater.dispatcher.add_handler(CommandHandler('deposit', deposit))
+    updater.dispatcher.add_handler(CommandHandler('balance', balance))
+    updater.dispatcher.add_handler(CommandHandler('withdraw', withdraw))
 
-updater.start_polling()
-updater.idle()
+    updater.start_polling()
+    updater.idle()
+
+
+if __name__ == '__main__':
+    main()
