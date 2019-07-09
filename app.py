@@ -46,13 +46,11 @@ def deposit(bot, update):
 
 
 def balance(bot, update):
-    # conn = sqlite3.connect('db.sqlite3')
-    # cursor = conn.cursor()
-    # query = ('SELECT balance FROM users WHERE id={}').format(
-    #                                             update.message.from_user.id)
-    # balance = cursor.execute(query)
-
-    balance = 0
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+    query = ('SELECT balance FROM users WHERE id={}').format(
+                                                update.message.from_user.id)
+    balance = cursor.execute(query).fetchone()[0]
 
     update.message.reply_text('You have: ' + str(balance) + ' BCH')
 
