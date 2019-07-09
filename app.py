@@ -85,6 +85,13 @@ def help_command(bot, update):
     /tip [amount] [username]""")
 
 
+def tip(but, update):
+    """ TODO
+    """
+    update.message.reply_text('I cannot do that yet 😅')
+
+
+
 # Main program
 init_database(DATABASE_PINK)
 updater = Updater('892772409:AAGQk_Fyz3Uelwvhoq8yUmRXPUuTxnFFIfY')
