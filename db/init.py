@@ -4,6 +4,9 @@ from bitcash import Key
 
 
 def init_database(database_name):
+    """ Checks if a local SQLite3 database is present.
+    Returns False if the file already exists, True otherwise.
+    """
     if not os.path.isfile(database_name):
         conn = sqlite3.connect(database_name)
         cursor = conn.cursor()

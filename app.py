@@ -5,10 +5,13 @@ from db.init import init_database
 import logging
 
 
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
 
 
+# URL or filename for the main database
 DATABASE_PINK = 'db.sqlite3'
 
 
@@ -44,6 +47,8 @@ def start(bot, update):
 
 
 def deposit(bot, update):
+    """ Fetches and returns the Bitcoin Cash address saved in the db
+    """
     conn = sqlite3.connect(DATABASE_PINK)
     cursor = conn.cursor()
     query = ('SELECT bch_address FROM users WHERE id={}').format(
@@ -54,6 +59,8 @@ def deposit(bot, update):
 
 
 def balance(bot, update):
+    """ Fetches and returns the balance (in BCH) saved in the db
+    """
     conn = sqlite3.connect(DATABASE_PINK)
     cursor = conn.cursor()
     query = ('SELECT balance FROM users WHERE id={}').format(
@@ -64,6 +71,8 @@ def balance(bot, update):
 
 
 def withdraw(bot, update):
+    """ TODO
+    """
     update.message.reply_text('I cannot do that yet 😅')
 
 
@@ -77,6 +86,3 @@ updater.dispatcher.add_handler(CommandHandler('withdraw', withdraw))
 
 updater.start_polling()
 updater.idle()
-
-# Update this later
-conn.close()
