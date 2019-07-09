@@ -1,5 +1,6 @@
 import sqlite3
 import os.path
+from bitcash import Key
 
 
 def init_database(database_name):
@@ -9,7 +10,9 @@ def init_database(database_name):
 
         cursor.execute("""CREATE TABLE users(
             id INTEGER,
-            balance REAL
+            balance REAL,
+            bch_address TEXT,
+            wif TEXT
         )""")
         conn.commit()
         conn.close()

@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.DEBUG,
 
 
 DATABASE_PINK = 'db.sqlite3'
-TEST_ADDRESS = 'bitcoincash:qp07y2dy5jvcpfgssfalajytm3xg7yz5fye2gu5cz9'
+
 
 init_database(DATABASE_PINK)
 
@@ -29,14 +29,28 @@ def start(bot, update):
         conn.close()
         update.message.reply_text('Hello again, ' + first_name)
     else:
-        cursor.execute("""INSERT INTO users VALUES (?, ?)""", (user_id, 0))
+        key = Key()
+        context = (
+            user_id,
+            0,  # initial balance
+            key.address,
+            key.to_wif(),
+        )
+
+        cursor.execute('INSERT INTO users VALUES (?, ?, ?, ?)', context)
         conn.commit()
         conn.close()
         update.message.reply_text('Hello ' + first_name)
 
 
 def deposit(bot, update):
-    update.message.reply_text(TEST_ADDRESS)
+    conn = sqlite3.connect(DATABASE_PINK)
+    cursor = conn.cursor()
+    query = ('SELECT bch_address FROM users WHERE id={}').format(
+                                                update.message.from_user.id)
+    address = cursor.execute(query).fetchone()[0]
+
+    update.message.reply_text(address)
 
 
 def balance(bot, update):
