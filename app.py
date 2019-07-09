@@ -104,6 +104,7 @@ def main():
     updater.dispatcher.add_handler(CommandHandler('deposit', deposit))
     updater.dispatcher.add_handler(CommandHandler('balance', balance))
     updater.dispatcher.add_handler(CommandHandler('withdraw', withdraw))
+    updater.dispatcher.add_handler(CommandHandler('tip', tip))
 
     updater.start_polling()
     updater.idle()
