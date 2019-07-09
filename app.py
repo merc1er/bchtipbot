@@ -1,5 +1,7 @@
 from telegram.ext import Updater, CommandHandler
 import sqlite3
+from bitcash import Key  # unused
+import os.path
 import logging
 
 
@@ -8,14 +10,16 @@ logging.basicConfig(level=logging.DEBUG,
 
 
 # Init the database
-# conn = sqlite3.connect('db.sqlite3')
-# cursor = conn.cursor()
+if not os.path.isfile('db.sqlite3'):
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
 
-# cursor.execute("""CREATE TABLE users(
-#     id INTEGER,
-#     balance REAL
-# )""")
-# conn.commit()
+    cursor.execute("""CREATE TABLE users(
+        id INTEGER,
+        balance REAL
+    )""")
+    conn.commit()
+    conn.close()
 
 
 TEST_ADDRESS = 'bitcoincash:qp07y2dy5jvcpfgssfalajytm3xg7yz5fye2gu5cz9'
