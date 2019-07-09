@@ -85,10 +85,17 @@ def help_command(bot, update):
     /tip [amount] [username]""")
 
 
-def tip(but, update):
-    """ TODO
+def tip(but, update, args):
+    """ Sends Bitcoin Cash off-chain
     """
-    update.message.reply_text('I cannot do that yet 😅')
+    if len(args) != 2:
+        update.message.reply_text('Usage: /tip [amount] [username]')
+
+    amount = args[0]
+    sender_id = update.message.from_user.id
+    recipient = args[1]
+
+    update.message.reply_text('You sent ' + amount + ' BCH to ' + recipient)
 
 
 
@@ -104,7 +111,7 @@ def main():
     updater.dispatcher.add_handler(CommandHandler('deposit', deposit))
     updater.dispatcher.add_handler(CommandHandler('balance', balance))
     updater.dispatcher.add_handler(CommandHandler('withdraw', withdraw))
-    updater.dispatcher.add_handler(CommandHandler('tip', tip))
+    updater.dispatcher.add_handler(CommandHandler('tip', tip, pass_args=True))
 
     updater.start_polling()
     updater.idle()
