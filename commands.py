@@ -54,6 +54,7 @@ def balance(bot, update):
     query = ('SELECT balance FROM users WHERE id={}').format(
                                                 update.message.from_user.id)
     balance = cursor.execute(query).fetchone()[0]
+    conn.close()
 
     update.message.reply_text('You have: ' + str(balance) + ' BCH')
 
@@ -76,7 +77,7 @@ def help_command(bot, update):
     /tip [amount] [username]""")
 
 
-def tip(but, update, args):
+def tip(bot, update, args):
     """ Sends Bitcoin Cash off-chain
     """
     if len(args) != 2:
@@ -87,4 +88,19 @@ def tip(but, update, args):
     recipient = args[1]
 
     update.message.reply_text('You sent ' + amount + ' BCH to ' + recipient)
+
+
+def add_funds(bot, update):  # REMOVE BEFORE DEPLOYING
+    """ Adds funds (100 fake BCH)
+    This is for testing only!
+    """
+    conn = sqlite3.connect(DATABASE_PINK)
+    cursor = conn.cursor()
+    query = ('UPDATE users SET balance = balance + 100 WHERE id={}').format(
+                                                update.message.from_user.id)
+    cursor.execute(query)
+    conn.commit()
+    conn.close()
+
+    update.message.reply_text('100 BCH added')
 
