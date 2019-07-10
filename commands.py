@@ -68,12 +68,18 @@ def tip(bot, update, args):
         return update.message.reply_text(
                     recipient_username + ' is not a valid username.')
 
+    recipient_username = recipient_username[1:]  # remove the '@'
     sender_username = update.message.from_user.username
+
+    if recipient_username == sender_username:
+        return update.message.reply_text('You cannot send money to yourself.')
+
     # deduct from sender and add to recipient
     response = deduct(sender_username, amount)
     if response != True:
+        # checks if the sender has enough money
         return update.message.reply_text(response)
-    add_and_create(recipient_username[1:], amount)
+    add_and_create(recipient_username, amount)
 
     return update.message.reply_text(
         'You sent ' + amount + ' BCH to ' + recipient_username)
