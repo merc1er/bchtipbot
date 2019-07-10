@@ -38,10 +38,6 @@ def create_user(username):
     query = ('SELECT * FROM users WHERE username="' + username + '"')
     entry = cursor.execute(query).fetchone()
 
-    print('--------------------------')
-    print(entry)
-    print('--------------------------')
-
     # if user is not present in the database
     if not entry:
         key = Key()
