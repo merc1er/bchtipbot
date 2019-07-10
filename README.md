@@ -29,3 +29,5 @@ git clone https://github.com/merc1er/BitcoinTippingBot
 cd BitcoinTippingBot
 python app.py
 ```
+
+Credentials and API keys are stored in `settings.py`
