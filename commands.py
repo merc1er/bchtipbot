@@ -62,9 +62,9 @@ def tip(bot, update, args):
     sender_username = update.message.from_user.username
     recipient_username = args[1]
     # check recipient's username
-    if recipient_username[0] != '@':
+    if not username_is_valid(recipient_username):
         return update.message.reply_text(
-                    recipient_username + ' is not a valid username')
+                    recipient_username + ' is not a valid username.')
 
     # deduct the amount from the sender
     deduct(sender_username, amount)
