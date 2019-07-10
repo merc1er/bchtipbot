@@ -21,7 +21,8 @@ def main():
     updater.dispatcher.add_handler(CommandHandler('help', help_command))
     updater.dispatcher.add_handler(CommandHandler('deposit', deposit))
     updater.dispatcher.add_handler(CommandHandler('balance', balance))
-    updater.dispatcher.add_handler(CommandHandler('withdraw', withdraw))
+    updater.dispatcher.add_handler(CommandHandler('withdraw',
+                                                    withdraw, pass_args=True))
     updater.dispatcher.add_handler(CommandHandler('tip', tip, pass_args=True))
     updater.dispatcher.add_handler(CommandHandler('add_funds', add_funds))
 

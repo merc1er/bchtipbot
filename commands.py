@@ -34,9 +34,13 @@ def balance(bot, update):
     return update.message.reply_text('You have: ' + str(balance) + ' BCH')
 
 
-def withdraw(bot, update):
+def withdraw(bot, update, args):
     """ TODO
     """
+    # deduct amount from user
+    # check if amount is correct
+    # check if address is correct
+    # sends amount (- tx fee) to the address
     return update.message.reply_text('I cannot do that yet 😅')
 
 
@@ -59,16 +63,14 @@ def tip(bot, update, args):
     if not amount_is_valid(amount):
         return update.message.reply_text(amount + ' is not a valid amount.')
 
-    sender_username = update.message.from_user.username
     recipient_username = args[1]
-    # check recipient's username
     if not username_is_valid(recipient_username):
         return update.message.reply_text(
                     recipient_username + ' is not a valid username.')
 
-    # deduct the amount from the sender
+    sender_username = update.message.from_user.username
+    # deduct from sender and add to recipient
     deduct(sender_username, amount)
-    # add (or create user if not in the DB) funds to the recipient
     add_and_create(recipient_username[1:], amount)
 
     return update.message.reply_text(
