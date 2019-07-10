@@ -1,6 +1,6 @@
 import sqlite3
 from bitcash import Key
-from db.balance import add, deduct, add_and_create, get_balance
+from db.balance import add, deduct, add_and_create, get_balance, get_address
 
 
 # URL or filename for the main database
@@ -38,12 +38,7 @@ def start(bot, update):
 def deposit(bot, update):
     """ Fetches and returns the Bitcoin Cash address saved in the db
     """
-    conn = sqlite3.connect(DATABASE_PINK)
-    cursor = conn.cursor()
-    query = ('SELECT bch_address FROM users WHERE username="{}"').format(
-                                            update.message.from_user.username)
-    address = cursor.execute(query).fetchone()[0]
-
+    address = get_address(update.message.from_user.username)
     update.message.reply_text(address)
 
 
