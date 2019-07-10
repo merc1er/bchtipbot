@@ -3,10 +3,7 @@ from bitcash import Key
 from db.balance import add, deduct, add_and_create, get_balance, get_address
 from db.init import create_user
 from checks import *
-
-
-# URL or filename for the main database
-DATABASE_PINK = 'db.sqlite3'
+from settings import DATABASE_PINK
 
 
 def start(bot, update):

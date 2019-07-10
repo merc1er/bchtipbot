@@ -2,6 +2,7 @@ from telegram.ext import Updater, CommandHandler
 from db.init import init_database
 from commands import *
 import logging
+from settings import TELEGRAM_TOKEN
 
 
 logging.basicConfig(
@@ -13,8 +14,8 @@ logging.basicConfig(
 def main():
     """ Runs the bot
     """
-    init_database(DATABASE_PINK)
-    updater = Updater('892772409:AAGQk_Fyz3Uelwvhoq8yUmRXPUuTxnFFIfY')
+    init_database()
+    updater = Updater(TELEGRAM_TOKEN)
 
     # Commands
     updater.dispatcher.add_handler(CommandHandler('start', start))

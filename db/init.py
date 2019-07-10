@@ -1,18 +1,15 @@
 import sqlite3
 import os.path
 from bitcash import Key
+from settings import DATABASE_PINK
 
 
-# URL or filename for the main database
-DATABASE_PINK = 'db.sqlite3'  # improve this
-
-
-def init_database(database_name=DATABASE_PINK):
+def init_database():
     """ Checks if a local SQLite3 database is present.
     Returns False if the file already exists, True otherwise.
     """
-    if not os.path.isfile(database_name):
-        conn = sqlite3.connect(database_name)
+    if not os.path.isfile(DATABASE_PINK):
+        conn = sqlite3.connect(DATABASE_PINK)
         cursor = conn.cursor()
 
         cursor.execute("""CREATE TABLE users(

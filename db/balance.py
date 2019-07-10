@@ -1,9 +1,7 @@
 import sqlite3
 from .init import create_user
 from bitcash import Key
-
-
-DATABASE_PINK = 'db.sqlite3'  # improve this
+from settings import DATABASE_PINK
 
 
 def get_balance(username):
