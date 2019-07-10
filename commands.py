@@ -1,6 +1,6 @@
 import sqlite3
 from bitcash import Key
-from db.balance import add, deduct, add_and_create
+from db.balance import add, deduct, add_and_create, get_balance
 
 
 # URL or filename for the main database
@@ -48,15 +48,8 @@ def deposit(bot, update):
 
 
 def balance(bot, update):
-    """ Fetches and returns the balance (in BCH) saved in the db
-    """
-    conn = sqlite3.connect(DATABASE_PINK)
-    cursor = conn.cursor()
-    query = ('SELECT balance FROM users WHERE username="{}"').format(
-                                            update.message.from_user.username)
-    balance = cursor.execute(query).fetchone()[0]
-    conn.close()
-
+    """ Fetches and returns the balance (in BCH) saved in the db """
+    balance = get_balance(update.message.from_user.username)
     update.message.reply_text('You have: ' + str(balance) + ' BCH')
 
 

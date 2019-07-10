@@ -6,6 +6,17 @@ from bitcash import Key
 DATABASE_PINK = 'db.sqlite3'  # improve this
 
 
+def get_balance(username):
+    """ Returns the balance (float) or [username] """
+    conn = sqlite3.connect(DATABASE_PINK)
+    cursor = conn.cursor()
+    query = ('SELECT balance FROM users WHERE username="{}"').format(username)
+    balance = cursor.execute(query).fetchone()[0]
+    conn.close()
+
+    return balance
+
+
 def update_balance(username, amount, operator):
     """ Updates (increase or decrease) the user's balance """
     conn = sqlite3.connect(DATABASE_PINK)
