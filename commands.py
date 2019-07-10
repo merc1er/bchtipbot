@@ -1,5 +1,6 @@
 import sqlite3
 from bitcash import Key
+from db.balance import add, deduct
 
 
 # URL or filename for the main database
@@ -94,13 +95,7 @@ def add_funds(bot, update):  # REMOVE BEFORE DEPLOYING
     """ Adds funds (100 fake BCH)
     This is for testing only!
     """
-    conn = sqlite3.connect(DATABASE_PINK)
-    cursor = conn.cursor()
-    query = ('UPDATE users SET balance = balance + 100 WHERE id={}').format(
-                                                update.message.from_user.id)
-    cursor.execute(query)
-    conn.commit()
-    conn.close()
+    add(update.message.from_user.id, 100)
 
     update.message.reply_text('100 BCH added')
 
