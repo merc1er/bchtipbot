@@ -24,12 +24,14 @@ def start(bot, update):
 
 def deposit(bot, update):
     """ Fetches and returns the Bitcoin Cash address saved in the db """
+    create_user(update.message.from_user.username)
     address = get_address(update.message.from_user.username)
-    return update.message.reply_text(address)
+    return update.message.reply_text('⚠️ do not send funds yet ⚠️' + address)
 
 
 def balance(bot, update):
     """ Fetches and returns the balance (in BCH) saved in the db """
+    create_user(update.message.from_user.username)
     balance = get_balance(update.message.from_user.username)
     return update.message.reply_text('You have: ' + str(balance) + ' BCH')
 
@@ -89,6 +91,6 @@ def add_funds(bot, update):  # REMOVE BEFORE DEPLOYING
     """ Adds funds (100 fake BCH)
     This is for testing only!
     """
-    add(update.message.from_user.username, 100)
+    add(update.message.from_user.username, 1)
     return update.message.reply_text('100 BCH added')
 
