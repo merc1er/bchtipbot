@@ -91,6 +91,7 @@ def add_funds(bot, update):  # REMOVE BEFORE DEPLOYING
     """ Adds funds (100 fake BCH)
     This is for testing only!
     """
-    add(update.message.from_user.username, 1)
-    return update.message.reply_text('100 BCH added')
+    amount = 1  # adds 1 BCH
+    add(update.message.from_user.username, amount)
+    return update.message.reply_text(amount + ' BCH added')
 
