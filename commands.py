@@ -86,11 +86,17 @@ def tip(bot, update, args):
 
     amount = args[0]
     sender_id = update.message.from_user.id
-    recipient = args[1]
+    recipient_username = args[1]
+    # check recipient's username
+    if recipient_username[0] != '@':
+        update.message.reply_text(
+            recipient_username + ' is not a valid username')
+
     # deduct the amount from the sender
     deduct(sender_id, amount)
 
-    update.message.reply_text('You sent ' + amount + ' BCH to ' + recipient)
+    update.message.reply_text(
+        'You sent ' + amount + ' BCH to ' + recipient_username)
 
 
 def add_funds(bot, update):  # REMOVE BEFORE DEPLOYING
