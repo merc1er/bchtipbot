@@ -2,6 +2,7 @@ import sqlite3
 from bitcash import Key
 from db.balance import add, deduct, add_and_create, get_balance, get_address
 from db.init import create_user
+from checks import *
 
 
 # URL or filename for the main database
@@ -55,6 +56,9 @@ def tip(bot, update, args):
         update.message.reply_text('Usage: /tip [amount] [username]')
 
     amount = args[0]
+    if not amount_is_valid(amount):
+        return update.message.reply_text(amount + ' is not a valid amount.')
+
     sender_username = update.message.from_user.username
     recipient_username = args[1]
     # check recipient's username
