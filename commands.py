@@ -69,13 +69,12 @@ def withdraw(bot, update):
 def help_command(bot, update):
     """ Displays the help text
     """
-    update.message.reply_text("""List of commands:
-    /start
-    /help
-    /deposit
-    /balance
-    /withdraw [amount] [BCH address]
-    /tip [amount] [username]""")
+    update.message.reply_text("""/start - Starts the bot
+/deposit - Displays your Bitcoin Cash address for top up
+/balance - Shows your balance in Bitcoin Cash
+/withdraw - Withdraw your funds. Usage: /withdraw [amount] [address]
+/help - Lists all commands
+/tip - Sends a tip. Usage: /tip [amount] [@username]""")
 
 
 def tip(bot, update, args):
