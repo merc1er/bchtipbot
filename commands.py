@@ -11,10 +11,6 @@ def start(bot, update):
     username = update.message.from_user.username
     first_name = update.message.from_user.first_name
 
-    print('----------------------------------')
-    print(username)
-    print('----------------------------------')
-
     # Check if user is already in the database
     conn = sqlite3.connect(DATABASE_PINK)
     cursor = conn.cursor()
