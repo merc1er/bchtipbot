@@ -1,6 +1,7 @@
 import sqlite3
 from bitcash import Key
 from db.balance import add, deduct, add_and_create, get_balance, get_address
+from db.init import create_user
 
 
 # URL or filename for the main database
@@ -8,36 +9,20 @@ DATABASE_PINK = 'db.sqlite3'
 
 
 def start(bot, update):
-    username = update.message.from_user.username
+    """ Starts the bot.
+    Create a database entry for [username] unless it exists already.
+    """
     first_name = update.message.from_user.first_name
 
-    # Check if user is already in the database
-    conn = sqlite3.connect(DATABASE_PINK)
-    cursor = conn.cursor()
-    query = ('SELECT * FROM users WHERE username="' + username + '"')
-    entry = cursor.execute(query).fetchone()
-
-    if entry:
-        conn.close()
-        update.message.reply_text('Hello again, ' + first_name)
-    else:
-        key = Key()
-        context = (
-            username,
-            0,  # initial balance
-            key.address,
-            key.to_wif(),
-        )
-
-        cursor.execute('INSERT INTO users VALUES (?, ?, ?, ?)', context)
-        conn.commit()
-        conn.close()
+    created = create_user(update.message.from_user.username)
+    if created:
         update.message.reply_text('Hello ' + first_name)
+    else:
+        update.message.reply_text('Hello again, ' + first_name)
 
 
 def deposit(bot, update):
-    """ Fetches and returns the Bitcoin Cash address saved in the db
-    """
+    """ Fetches and returns the Bitcoin Cash address saved in the db """
     address = get_address(update.message.from_user.username)
     update.message.reply_text(address)
 
