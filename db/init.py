@@ -12,10 +12,10 @@ def init_database(database_name):
         cursor = conn.cursor()
 
         cursor.execute("""CREATE TABLE users(
-            id INTEGER,
-            balance REAL,
-            bch_address TEXT,
-            wif TEXT
+            username TEXT NOT NULL,
+            balance REAL NOT NULL,
+            bch_address TEXT NOT NULL,
+            wif TEXT NOT NULL
         )""")
         conn.commit()
         conn.close()

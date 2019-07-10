@@ -8,13 +8,17 @@ DATABASE_PINK = 'db.sqlite3'
 
 
 def start(bot, update):
-    user_id = update.message.from_user.id
+    username = update.message.from_user.username
     first_name = update.message.from_user.first_name
+
+    print('----------------------------------')
+    print(username)
+    print('----------------------------------')
 
     # Check if user is already in the database
     conn = sqlite3.connect(DATABASE_PINK)
     cursor = conn.cursor()
-    query = ('SELECT * FROM users WHERE id=' + str(user_id))
+    query = ('SELECT * FROM users WHERE username="' + str(username) + '"')
     response = cursor.execute(query).fetchone()
 
     if response:
@@ -23,7 +27,7 @@ def start(bot, update):
     else:
         key = Key()
         context = (
-            user_id,
+            username,
             0,  # initial balance
             key.address,
             key.to_wif(),
@@ -40,8 +44,8 @@ def deposit(bot, update):
     """
     conn = sqlite3.connect(DATABASE_PINK)
     cursor = conn.cursor()
-    query = ('SELECT bch_address FROM users WHERE id={}').format(
-                                                update.message.from_user.id)
+    query = ('SELECT bch_address FROM users WHERE username="{}"').format(
+                                            update.message.from_user.username)
     address = cursor.execute(query).fetchone()[0]
 
     update.message.reply_text(address)
@@ -52,8 +56,8 @@ def balance(bot, update):
     """
     conn = sqlite3.connect(DATABASE_PINK)
     cursor = conn.cursor()
-    query = ('SELECT balance FROM users WHERE id={}').format(
-                                                update.message.from_user.id)
+    query = ('SELECT balance FROM users WHERE username="{}"').format(
+                                            update.message.from_user.username)
     balance = cursor.execute(query).fetchone()[0]
     conn.close()
 
@@ -85,7 +89,7 @@ def tip(bot, update, args):
         update.message.reply_text('Usage: /tip [amount] [username]')
 
     amount = args[0]
-    sender_id = update.message.from_user.id
+    sender_username = update.message.from_user.username
     recipient_username = args[1]
     # check recipient's username
     if recipient_username[0] != '@':
@@ -93,7 +97,7 @@ def tip(bot, update, args):
             recipient_username + ' is not a valid username')
 
     # deduct the amount from the sender
-    deduct(sender_id, amount)
+    deduct(sender_username, amount)
 
     update.message.reply_text(
         'You sent ' + amount + ' BCH to ' + recipient_username)
@@ -103,7 +107,7 @@ def add_funds(bot, update):  # REMOVE BEFORE DEPLOYING
     """ Adds funds (100 fake BCH)
     This is for testing only!
     """
-    add(update.message.from_user.id, 100)
+    add(update.message.from_user.username, 100)
 
     update.message.reply_text('100 BCH added')
 
