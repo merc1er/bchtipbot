@@ -3,7 +3,11 @@ import os.path
 from bitcash import Key
 
 
-def init_database(database_name):
+# URL or filename for the main database
+DATABASE_PINK = 'db.sqlite3'  # improve this
+
+
+def init_database(database_name=DATABASE_PINK):
     """ Checks if a local SQLite3 database is present.
     Returns False if the file already exists, True otherwise.
     """
@@ -21,4 +25,37 @@ def init_database(database_name):
         conn.close()
         return True
 
+    return False
+
+
+def create_user(username):
+    """ Checks if a Telegram user is present in the database.
+    Returns True if a user is created, False otherwise.
+    """
+    conn = sqlite3.connect(DATABASE_PINK)
+    cursor = conn.cursor()
+
+    query = ('SELECT * FROM users WHERE username="' + username + '"')
+    entry = cursor.execute(query).fetchone()
+
+    print('--------------------------')
+    print(entry)
+    print('--------------------------')
+
+    # if user is not present in the database
+    if not entry:
+        key = Key()
+        context = (
+            username,
+            0,  # initial balance
+            key.address,
+            key.to_wif(),
+        )
+
+        cursor.execute('INSERT INTO users VALUES (?, ?, ?, ?)', context)
+        conn.commit()
+        conn.close()
+        return True
+
+    conn.close()
     return False

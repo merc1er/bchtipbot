@@ -1,6 +1,6 @@
 import sqlite3
 from bitcash import Key
-from db.balance import add, deduct
+from db.balance import add, deduct, add_and_create
 
 
 # URL or filename for the main database
@@ -14,10 +14,10 @@ def start(bot, update):
     # Check if user is already in the database
     conn = sqlite3.connect(DATABASE_PINK)
     cursor = conn.cursor()
-    query = ('SELECT * FROM users WHERE username="' + str(username) + '"')
-    response = cursor.execute(query).fetchone()
+    query = ('SELECT * FROM users WHERE username="' + username + '"')
+    entry = cursor.execute(query).fetchone()
 
-    if response:
+    if entry:
         conn.close()
         update.message.reply_text('Hello again, ' + first_name)
     else:
@@ -67,8 +67,7 @@ def withdraw(bot, update):
 
 
 def help_command(bot, update):
-    """ Displays the help text
-    """
+    """ Displays the help text """
     update.message.reply_text("""/start - Starts the bot
 /deposit - Displays your Bitcoin Cash address for top up
 /balance - Shows your balance in Bitcoin Cash
@@ -78,8 +77,7 @@ def help_command(bot, update):
 
 
 def tip(bot, update, args):
-    """ Sends Bitcoin Cash off-chain
-    """
+    """ Sends Bitcoin Cash off-chain """
     if len(args) != 2:
         update.message.reply_text('Usage: /tip [amount] [username]')
 
@@ -93,6 +91,8 @@ def tip(bot, update, args):
 
     # deduct the amount from the sender
     deduct(sender_username, amount)
+    # add (or create user if not in the DB) funds to the recipient
+    add_and_create(recipient_username[1:], amount)
 
     update.message.reply_text(
         'You sent ' + amount + ' BCH to ' + recipient_username)
