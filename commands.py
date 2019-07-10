@@ -70,7 +70,9 @@ def tip(bot, update, args):
 
     sender_username = update.message.from_user.username
     # deduct from sender and add to recipient
-    deduct(sender_username, amount)
+    response = deduct(sender_username, amount)
+    if response != True:
+        return update.message.reply_text(response)
     add_and_create(recipient_username[1:], amount)
 
     return update.message.reply_text(
@@ -82,6 +84,5 @@ def add_funds(bot, update):  # REMOVE BEFORE DEPLOYING
     This is for testing only!
     """
     add(update.message.from_user.username, 100)
-
     return update.message.reply_text('100 BCH added')
 

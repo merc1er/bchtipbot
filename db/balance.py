@@ -49,7 +49,18 @@ def add(username, amount):
 
 
 def deduct(username, amount):
-    """ Removes [amount] BCH to [username] """
+    """ Removes [amount] BCH to [username] if the remaining balance
+    is positive.
+    """
+    conn = sqlite3.connect(DATABASE_PINK)
+    cursor = conn.cursor()
+    query = 'SELECT balance FROM users WHERE username="{}"'.format(username)
+    balance = cursor.execute(query).fetchone()[0]
+    remaining_balance = float(balance) - float(amount)
+    if remaining_balance < 0:
+        return 'Insufficient balance.'
+    conn.close()
+
     return update_balance(username, amount, operator='-')
 
 
