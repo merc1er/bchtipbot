@@ -25,17 +25,12 @@ def get_address(username):
 
 def update_balance(username, amount, operator):
     """ Updates (increase or decrease) the user's balance """
-    query = ("""UPDATE users
-        SET balance = balance {operator} {amount} 
-        WHERE username="{username}" """).format(operator=operator,
-                                            amount=amount, username=username)
-
     db.connect(reuse_if_open=True)
     user = User.get(User.username == username)
     if operator == '+':
-        user.balance += amount
+        user.balance += float(amount)
     else:
-        user.balance -= amount
+        user.balance -= float(amount)
     user.save()
     db.close()
 
@@ -51,14 +46,13 @@ def deduct(username, amount):
     """ Removes [amount] BCH to [username] if the remaining balance
     is positive.
     """
-    conn = sqlite3.connect(DATABASE_PINK)
-    cursor = conn.cursor()
-    query = 'SELECT balance FROM users WHERE username="{}"'.format(username)
-    balance = cursor.execute(query).fetchone()[0]
-    remaining_balance = float(balance) - float(amount)
+    db.connect(reuse_if_open=True)
+    user = User.get(User.username == username)
+    remaining_balance = user.balance - float(amount)
+    db.close()
+
     if remaining_balance < 0:
         return 'Insufficient balance.'
-    conn.close()
 
     return update_balance(username, amount, operator='-')
 
