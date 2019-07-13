@@ -29,7 +29,8 @@ def balance(bot, update):
     """ Fetches and returns the balance (in BCH) saved in the db """
     create_user(update.message.from_user.username)
     balance = get_balance(update.message.from_user.username)
-    return update.message.reply_text('You have: ' + str(balance) + ' BCH')
+    return update.message.reply_text(
+                                'You have: ' + f'{balance:,}' + ' satoshis')
 
 
 def withdraw(bot, update, args):
@@ -80,14 +81,14 @@ def tip(bot, update, args):
     add_and_create(recipient_username, amount)
 
     return update.message.reply_text(
-        'You sent ' + amount + ' BCH to ' + recipient_username)
+        'You sent ' + f'{int(amount):,}' + ' satoshis to ' + recipient_username)
 
 
 def add_funds(bot, update):  # REMOVE BEFORE DEPLOYING
     """ Adds funds (100 fake BCH)
     This is for testing only!
     """
-    amount = 1  # adds 1 BCH
+    amount = 100000000  # adds 1 BCH
     add(update.message.from_user.username, amount)
-    return update.message.reply_text(str(amount) + ' BCH added')
+    return update.message.reply_text(f'{amount:,}' + ' BCH added')
 

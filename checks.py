@@ -5,7 +5,7 @@ def amount_is_valid(amount):
     """ Checks if [amount] is a valid BCH amount """
     try:
         amount = float(amount)
-        if amount < 0.00000001 or amount > 21000000:
+        if amount <= 0 or amount > 2100000000000000:
             # minimum is 1 satoshi, maximum 21M BCH
             return False
     except:
