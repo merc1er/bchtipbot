@@ -1,4 +1,3 @@
-import sqlite3
 from bitcash import Key
 from db.balance import add, deduct, add_and_create, get_balance, get_address
 from db.init import create_user
