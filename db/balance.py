@@ -16,11 +16,9 @@ def get_balance(username):
 
 def get_address(username):
     """ Returns the Bitcoin Cash address (str) of [username] """
-    conn = sqlite3.connect(DATABASE_PINK)
-    cursor = conn.cursor()
-    query = ('SELECT bch_address FROM users WHERE username="{}"').format(
-                                                                    username)
-    address = cursor.execute(query).fetchone()[0]
+    db.connect()
+    address = User.get(User.username == username).bch_address
+    db.close()
 
     return address
 
