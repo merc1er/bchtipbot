@@ -89,5 +89,5 @@ def add_funds(bot, update):  # REMOVE BEFORE DEPLOYING
     """
     amount = 1  # adds 1 BCH
     add(update.message.from_user.username, amount)
-    return update.message.reply_text(amount + ' BCH added')
+    return update.message.reply_text(str(amount) + ' BCH added')
 

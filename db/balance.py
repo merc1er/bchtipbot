@@ -25,15 +25,19 @@ def get_address(username):
 
 def update_balance(username, amount, operator):
     """ Updates (increase or decrease) the user's balance """
-    conn = sqlite3.connect(DATABASE_PINK)
-    cursor = conn.cursor()
     query = ("""UPDATE users
         SET balance = balance {operator} {amount} 
         WHERE username="{username}" """).format(operator=operator,
                                             amount=amount, username=username)
-    cursor.execute(query)
-    conn.commit()
-    conn.close()
+
+    db.connect(reuse_if_open=True)
+    user = User.get(User.username == username)
+    if operator == '+':
+        user.balance += amount
+    else:
+        user.balance -= amount
+    user.save()
+    db.close()
 
     return True
 
