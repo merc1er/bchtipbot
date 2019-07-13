@@ -1,4 +1,3 @@
-import sqlite3
 from .init import create_user
 from .models import db, User
 from bitcash import Key
