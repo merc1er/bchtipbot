@@ -1,16 +1,15 @@
 import sqlite3
 from .init import create_user
+from .models import db, User
 from bitcash import Key
 from settings import DATABASE_PINK
 
 
 def get_balance(username):
     """ Returns the balance (float) or [username] """
-    conn = sqlite3.connect(DATABASE_PINK)
-    cursor = conn.cursor()
-    query = ('SELECT balance FROM users WHERE username="{}"').format(username)
-    balance = cursor.execute(query).fetchone()[0]
-    conn.close()
+    db.connect(reuse_if_open=True)
+    balance = User.get(User.username == username).balance
+    db.close()
 
     return balance
 
