@@ -12,8 +12,7 @@ logging.basicConfig(
 
 
 def main():
-    """ Runs the bot
-    """
+    """ Runs the bot """
     db.connect()
     db.create_tables([User], safe=True)
 
@@ -23,6 +22,7 @@ def main():
     updater.dispatcher.add_handler(CommandHandler('start', start))
     updater.dispatcher.add_handler(CommandHandler('help', help_command))
     updater.dispatcher.add_handler(CommandHandler('deposit', deposit))
+    updater.dispatcher.add_handler(CommandHandler('deposited', deposited))
     updater.dispatcher.add_handler(CommandHandler('balance', balance))
     updater.dispatcher.add_handler(CommandHandler('withdraw',
                                                     withdraw, pass_args=True))
