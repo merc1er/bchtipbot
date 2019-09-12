@@ -17,13 +17,7 @@ tip - Sends a tip. Usage: /tip [amount] [@username]
 
 ## Run development server
 
-- Clone the GitHub repository:
-
-```shell
-git clone https://github.com/merc1er/BitcoinTippingBot
-```
-
-- Start the server
+Run the following commands:
 
 ```shell
 cd BitcoinTippingBot

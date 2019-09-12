@@ -1,5 +1,6 @@
 # Environment specific
 .DS_Store
+README.html
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
