@@ -28,6 +28,6 @@ Credentials and API keys are stored in `settings.py`
 
 ## To do
 
-- migration to PostgreSQL
-- logging
-- prepare for deployment
+- USD/Fiat conversions
+- Queues with Celery/rq
+- tip by replying
