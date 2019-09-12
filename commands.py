@@ -1,5 +1,5 @@
 from bitcash import Key
-from db.balance import get_balance, get_address, get_wif
+from db.get import get_balance, get_address, get_wif
 from db.init import create_user
 from checks import *
 
@@ -90,12 +90,7 @@ def tip(bot, update, args):
     if recipient_username == sender_username:
         return update.message.reply_text('You cannot send money to yourself.')
 
-    # deduct from sender and add to recipient
-    response = deduct(sender_username, amount)
-    if response != True:
-        # checks if the sender has enough money
-        return update.message.reply_text(response)
-    add_and_create(recipient_username, amount)
+    # send here
 
     return update.message.reply_text(
         'You sent ' + f'{int(amount):,}' + ' satoshis to ' + recipient_username)
