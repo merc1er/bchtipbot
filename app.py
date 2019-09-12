@@ -28,7 +28,19 @@ def main():
                                                     withdraw, pass_args=True))
     updater.dispatcher.add_handler(CommandHandler('tip', tip, pass_args=True))
 
-    updater.start_polling()
+    if DEBUG:
+        updater.start_polling()
+    else:
+        # Port is given by Heroku
+        PORT = os.environ.get('PORT')
+        NAME = 'bchtipbot'
+        # Start the webhook
+        updater.start_webhook(listen="0.0.0.0",
+                              port=int(PORT),
+                              url_path=TOKEN)
+        updater.bot.setWebhook('https://{}.herokuapp.com/{}'.format(
+                                                            NAME, TOKEN))
+
     updater.idle()
 
 
