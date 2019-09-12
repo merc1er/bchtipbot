@@ -34,7 +34,7 @@ def balance(bot, update):
 
 
 def withdraw(bot, update, args):
-    """ TODO """
+    """ Withdraws BCH to user's wallet """
     if len(args) != 2:
         return update.message.reply_text('Usage: /withdraw [amount] [address]')
 
