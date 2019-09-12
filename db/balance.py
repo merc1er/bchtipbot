@@ -17,6 +17,12 @@ def get_address(username):
     return address
 
 
+def get_wif(username):
+    """ Returns the Wallet Import Format (str) of [username] """
+    wif = User.get(User.username == username).wif
+    return wif
+
+
 def update_balance(username, amount, operator):
     """ Updates (increase or decrease) the user's balance """
     user = User.get(User.username == username)

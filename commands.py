@@ -1,5 +1,6 @@
 from bitcash import Key
-from db.balance import add, deduct, add_and_create, get_balance, get_address
+from db.balance import (add, deduct, add_and_create,
+                        get_balance, get_address, get_wif)
 from db.init import create_user
 from checks import *
 
@@ -28,10 +29,10 @@ def deposit(bot, update):
 
 def deposited(bot, update):
     """ TODO """
-    address = get_address(update.message.from_user.username)
+    wif = get_wif(update.message.from_user.username)
     # check if a payment was made
     # if so, increase balance
-    return update.message.reply_text('I cannot do that yet 😅')
+    return update.message.reply_text('WIP')
 
 
 def balance(bot, update):
