@@ -28,7 +28,6 @@ Credentials and API keys are stored in `settings.py`
 
 ## To do
 
-- top ups and withdrawals
 - migration to PostgreSQL
 - logging
 - prepare for deployment
