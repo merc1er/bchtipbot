@@ -1,6 +1,7 @@
 from telegram.ext import Updater, CommandHandler
 from commands import *
 import logging
+import os
 from settings import TOKEN, DEBUG
 from db.models import db, User
 
