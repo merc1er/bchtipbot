@@ -55,7 +55,7 @@ def withdraw(bot, update, args):
     ]
     key.get_balance()
     try:
-        tx_id = key.send(outputs)
+        tx_id = key.send(outputs, fee=1)
     except:
         return update.message.reply_text('Transaction failed!')
 
@@ -106,7 +106,7 @@ def tip(bot, update, args):
     ]
     key.get_balance()
     try:
-        tx_id = key.send(outputs)
+        tx_id = key.send(outputs, fee=1)
     except:
         return update.message.reply_text('Transaction failed!')
 
