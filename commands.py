@@ -1,6 +1,5 @@
 from bitcash import Key
-from db.balance import (add, deduct, add_and_create,
-                        get_balance, get_address, get_wif)
+from db.balance import get_balance, get_address, get_wif
 from db.init import create_user
 from checks import *
 
