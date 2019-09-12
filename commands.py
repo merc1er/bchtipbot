@@ -23,16 +23,7 @@ def deposit(bot, update):
     create_user(update.message.from_user.username)
     address = get_address(update.message.from_user.username)
     update.message.reply_text('Send Bitcoin Cash to:')
-    update.message.reply_html('<b>{}</b>'.format(address))
-    return update.message.reply_text('Then type /deposited')
-
-
-def deposited(bot, update):
-    """ TODO """
-    wif = get_wif(update.message.from_user.username)
-    # check if a payment was made
-    # if so, increase balance
-    return update.message.reply_text('WIP')
+    return update.message.reply_html('<b>{}</b>'.format(address))
 
 
 def balance(bot, update):
