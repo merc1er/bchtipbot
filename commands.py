@@ -2,7 +2,6 @@ from bitcash import Key
 from db.balance import add, deduct, add_and_create, get_balance, get_address
 from db.init import create_user
 from checks import *
-from settings import DATABASE_PINK
 
 
 def start(bot, update):
