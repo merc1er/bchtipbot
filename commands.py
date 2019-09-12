@@ -107,12 +107,3 @@ def tip(bot, update, args):
     return update.message.reply_text('You sent ' +
             f'{int(sent_amount):,}' + ' satoshis to ' + recipient_username)
 
-
-def add_funds(bot, update):  # REMOVE BEFORE DEPLOYING
-    """ Adds funds (100 fake BCH)
-    This is for testing only!
-    """
-    amount = 100000000  # adds 1 BCH
-    add(update.message.from_user.username, amount)
-    return update.message.reply_text(f'{amount:,}' + ' BCH added')
-

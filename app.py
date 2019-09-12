@@ -26,7 +26,6 @@ def main():
     updater.dispatcher.add_handler(CommandHandler('withdraw',
                                                     withdraw, pass_args=True))
     updater.dispatcher.add_handler(CommandHandler('tip', tip, pass_args=True))
-    updater.dispatcher.add_handler(CommandHandler('add_funds', add_funds))
 
     updater.start_polling()
     updater.idle()
