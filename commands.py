@@ -37,11 +37,11 @@ def withdraw(bot, update, args):
     if len(args) != 2:
         return update.message.reply_text('Usage: /withdraw [amount] [address]')
 
-    amount = args[0]
+    amount = args[0].replace('$', '')
     if not amount_is_valid(amount):
-        return update.message.reply_text(amount + ' is not a valid amount.')
+        return update.message.reply_text(amount + ' is not a valid amount')
 
-    sent_amount = int(amount) - 2000  # after 2000 sat fee
+    sent_amount = float(amount) - 0.01  # after 1 cent fee
 
     address = args[1]
     # check if address is correct here?
@@ -50,11 +50,14 @@ def withdraw(bot, update, args):
     key = Key(wif)
 
     outputs = [
-        (address, sent_amount, 'satoshi'),
+        (address, sent_amount, 'usd'),
         # add more recipients here
     ]
     key.get_balance()
-    tx_id = key.send(outputs)
+    try:
+        tx_id = key.send(outputs)
+    except:
+        return update.message.reply_text('Transaction failed!')
 
     return update.message.reply_text('Sent! Transaction ID: ' + tx_id)
 
@@ -64,7 +67,7 @@ def help_command(bot, update):
     return update.message.reply_text("""/start - Starts the bot
 /deposit - Displays your Bitcoin Cash address for top up
 /balance - Shows your balance in Bitcoin Cash
-/withdraw - Withdraw your funds. Usage: /withdraw [amount] [address]
+/withdraw - Withdraw your funds. Usage: /withdraw $[amount] [address]
 /help - Lists all commands
 /tip - Sends a tip. Usage: /tip [amount] [@username]""")
 
@@ -74,7 +77,7 @@ def tip(bot, update, args):
     if len(args) != 2:
         return update.message.reply_text('Usage: /tip [amount] [username]')
 
-    amount = args[0]
+    amount = args[0].replace('$', '')
     if not amount_is_valid(amount):
         return update.message.reply_text(amount + ' is not a valid amount.')
 
@@ -94,15 +97,18 @@ def tip(bot, update, args):
 
     key = Key(sender_wif)
 
-    sent_amount = int(amount) - 2000
+    sent_amount = float(amount) - 0.01
 
     outputs = [
-        (recipient_address, sent_amount, 'satoshi'),
+        (recipient_address, sent_amount, 'usd'),
         # add more recipients here (fee)
     ]
     key.get_balance()
-    tx_id = key.send(outputs)
+    try:
+        tx_id = key.send(outputs)
+    except:
+        return update.message.reply_text('Transaction failed!')
 
     return update.message.reply_text('You sent ' +
-            f'{int(sent_amount):,}' + ' satoshis to ' + recipient_username)
+            amount + ' satoshis to ' + recipient_username)
 
