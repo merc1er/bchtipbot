@@ -1,14 +1,15 @@
 from telegram.ext import Updater, CommandHandler
 from commands import *
 import logging
-from settings import TELEGRAM_TOKEN
+from settings import TELEGRAM_TOKEN, DEBUG
 from db.models import db, User
 
 
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+if DEBUG:
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
 
 
 def main():
