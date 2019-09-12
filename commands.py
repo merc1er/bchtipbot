@@ -109,6 +109,6 @@ def tip(bot, update, args):
     except:
         return update.message.reply_text('Transaction failed!')
 
-    return update.message.reply_text('You sent ' +
-            amount + ' satoshis to ' + recipient_username)
+    return update.message.reply_text('You sent $' +
+            amount + ' to ' + recipient_username)
 
