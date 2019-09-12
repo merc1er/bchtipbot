@@ -36,11 +36,29 @@ def balance(bot, update):
 
 def withdraw(bot, update, args):
     """ TODO """
-    # check if amount is correct
-    # check if address is correct
-    # deduct amount from user
-    # sends amount (- tx fee) to the address
-    return update.message.reply_text('I cannot do that yet 😅')
+    if len(args) != 2:
+        return update.message.reply_text('Usage: /withdraw [amount] [address]')
+
+    amount = args[0]
+    if not amount_is_valid(amount):
+        return update.message.reply_text(amount + ' is not a valid amount.')
+
+    sent_amount = int(amount) - 2000  # after 2000 sat fee
+
+    address = args[1]
+    # check if address is correct here?
+
+    wif = get_wif(update.message.from_user.username)
+    key = Key(wif)
+
+    outputs = [
+        (address, sent_amount, 'satoshi'),
+        # add more recipients here
+    ]
+    key.get_balance()
+    tx_id = key.send(outputs)
+
+    return update.message.reply_text('Sent! Transaction ID: ' + tx_id)
 
 
 def help_command(bot, update):
