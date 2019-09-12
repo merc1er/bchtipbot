@@ -22,7 +22,14 @@ def deposit(bot, update):
     """ Fetches and returns the Bitcoin Cash address saved in the db """
     create_user(update.message.from_user.username)
     address = get_address(update.message.from_user.username)
-    return update.message.reply_text('⚠️ do not send funds yet ⚠️' + address)
+    update.message.reply_text('Send Bitcoin Cash to:')
+    update.message.reply_html('<b>{}</b>'.format(address))
+    return update.message.reply_text('Then type /deposited')
+
+
+def deposited(bot, update):
+    """ TODO """
+    return update.message.reply_text('I cannot do that yet 😅')
 
 
 def balance(bot, update):
@@ -34,8 +41,7 @@ def balance(bot, update):
 
 
 def withdraw(bot, update, args):
-    """ TODO
-    """
+    """ TODO """
     # deduct amount from user
     # check if amount is correct
     # check if address is correct
