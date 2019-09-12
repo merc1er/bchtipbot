@@ -1,6 +1,5 @@
 import os.path
 from bitcash import Key
-from settings import DATABASE_PINK
 from .models import db, User
 
 

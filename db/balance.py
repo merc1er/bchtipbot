@@ -1,7 +1,6 @@
 from .init import create_user
 from .models import db, User
 from bitcash import Key
-from settings import DATABASE_PINK
 
 
 def get_balance(username):
