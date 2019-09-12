@@ -5,7 +5,9 @@ from bitcash import Key
 
 def get_balance(username):
     """ Returns the balance (float) or [username] """
-    balance = User.get(User.username == username).balance
+    wif = User.get(User.username == username).wif
+    key = Key(wif)
+    balance = key.get_balance()
     return balance
 
 

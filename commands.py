@@ -39,7 +39,7 @@ def balance(bot, update):
     create_user(update.message.from_user.username)
     balance = get_balance(update.message.from_user.username)
     return update.message.reply_text(
-                                'You have: ' + f'{balance:,}' + ' satoshis')
+                                'You have: ' + balance + ' satoshis')
 
 
 def withdraw(bot, update, args):

@@ -6,7 +6,6 @@ db = SqliteDatabase(DATABASE_PINK)
 
 class User(Model):
     username = CharField(max_length=30, unique=True)
-    balance = IntegerField(default=0)
     bch_address = CharField(max_length=54, unique=True)
     wif = CharField(max_length=54, unique=True)
 
