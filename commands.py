@@ -28,6 +28,9 @@ def deposit(bot, update):
 
 def deposited(bot, update):
     """ TODO """
+    address = get_address(update.message.from_user.username)
+    # check if a payment was made
+    # if so, increase balance
     return update.message.reply_text('I cannot do that yet 😅')
 
 
@@ -41,9 +44,9 @@ def balance(bot, update):
 
 def withdraw(bot, update, args):
     """ TODO """
-    # deduct amount from user
     # check if amount is correct
     # check if address is correct
+    # deduct amount from user
     # sends amount (- tx fee) to the address
     return update.message.reply_text('I cannot do that yet 😅')
 
