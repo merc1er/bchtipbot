@@ -92,6 +92,7 @@ def tip(bot, update, args):
     if recipient_username == sender_username:
         return update.message.reply_text('You cannot send money to yourself.')
 
+    create_user(recipient_username)  # IMPROVE
     recipient_address = get_address(recipient_username)
     sender_wif = get_wif(sender_username)
 
