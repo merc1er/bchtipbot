@@ -20,7 +20,7 @@ tip - Sends a tip. Usage: /tip [amount] [@username]
 Run the following commands:
 
 ```shell
-cd BitcoinTippingBot
+pip install -r requirements.txt
 python app.py
 ```
 
