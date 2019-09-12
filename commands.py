@@ -4,9 +4,6 @@ from db.init import create_user
 from checks import *
 
 
-FEE_ADDRESS = 'bitcoincash:qr02vc2t5yr9fe4ujdpkg99d5d0dgxstfqtgxg7umu'
-
-
 def start(bot, update):
     """ Starts the bot.
     Create a database entry for [username] unless it exists already.
@@ -54,6 +51,7 @@ def withdraw(bot, update, args):
 
     outputs = [
         (address, sent_amount, 'usd'),
+        # add more recipients here
     ]
     key.get_balance()
     try:
@@ -99,11 +97,11 @@ def tip(bot, update, args):
 
     key = Key(sender_wif)
 
-    sent_amount = float(amount) - 0.01 - sent_amount * 0.01
+    sent_amount = float(amount) - 0.01
 
     outputs = [
         (recipient_address, sent_amount, 'usd'),
-        (FEE_ADDRESS, sent_amount * 0.01, 'usd'),
+        # add more recipients here (fee)
     ]
     key.get_balance()
     try:
@@ -112,5 +110,5 @@ def tip(bot, update, args):
         return update.message.reply_text('Transaction failed!')
 
     return update.message.reply_text('You sent $' +
-                            amount + ' to ' + recipient_username)
+            amount + ' to ' + recipient_username)
 
