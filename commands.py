@@ -26,7 +26,7 @@ def deposit(bot, update):
 
 
 def balance(bot, update):
-    """ Fetches and returns the balance (in satoshis) """
+    """ Fetches and returns the balance (in USD) """
     create_user(update.message.from_user.username)
     balance = get_balance(update.message.from_user.username)
     return update.message.reply_text('You have: $' + balance)
