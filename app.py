@@ -1,7 +1,7 @@
 from telegram.ext import Updater, CommandHandler
 from commands import *
 import logging
-from settings import TELEGRAM_TOKEN, DEBUG
+from settings import TOKEN, DEBUG
 from db.models import db, User
 
 
@@ -17,7 +17,7 @@ def main():
     db.connect()
     db.create_tables([User], safe=True)
 
-    updater = Updater(TELEGRAM_TOKEN)
+    updater = Updater(TOKEN)
 
     # Commands
     updater.dispatcher.add_handler(CommandHandler('start', start))
