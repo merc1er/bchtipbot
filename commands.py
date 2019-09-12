@@ -90,10 +90,22 @@ def tip(bot, update, args):
     if recipient_username == sender_username:
         return update.message.reply_text('You cannot send money to yourself.')
 
-    # send here
+    recipient_address = get_address(recipient_username)
+    sender_wif = get_wif(sender_username)
 
-    return update.message.reply_text(
-        'You sent ' + f'{int(amount):,}' + ' satoshis to ' + recipient_username)
+    key = Key(sender_wif)
+
+    sent_amount = int(amount) - 2000
+
+    outputs = [
+        (recipient_address, sent_amount, 'satoshi'),
+        # add more recipients here (fee)
+    ]
+    key.get_balance()
+    tx_id = key.send(outputs)
+
+    return update.message.reply_text('You sent ' +
+            f'{int(sent_amount):,}' + ' satoshis to ' + recipient_username)
 
 
 def add_funds(bot, update):  # REMOVE BEFORE DEPLOYING
