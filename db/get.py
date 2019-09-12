@@ -7,7 +7,7 @@ def get_balance(username):
     """ Returns the balance (float) or [username] """
     wif = User.get(User.username == username).wif
     key = Key(wif)
-    balance = key.get_balance()
+    balance = key.get_balance('usd')
     return balance
 
 
