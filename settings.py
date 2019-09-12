@@ -8,6 +8,11 @@ except:
     DEBUG = True
 
 
+try:
+    TOKEN = os.environ['TOKEN']
+except:
+    TOKEN = '892772409:AAGQk_Fyz3Uelwvhoq8yUmRXPUuTxnFFIfY'
+
+
 DATABASE_PINK = 'db.sqlite3'
-TOKEN = '892772409:AAGQk_Fyz3Uelwvhoq8yUmRXPUuTxnFFIfY'
 
