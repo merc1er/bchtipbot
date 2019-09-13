@@ -1,8 +1,8 @@
-# Bitcoin Tipping Bot
+# BCH Tip Bot
 
 ## Usage
 
-Simply open https://t.me/BitcoinTippingBot and talk to the bot.
+Simply open https://t.me/BCHtipbot and talk to the bot.
 
 ### List of commands
 
@@ -26,8 +26,21 @@ python app.py
 
 Credentials and API keys are stored in `settings.py`
 
+#### Customize the bot
+
+In `settings.py`, edit:
+
+```shell
+FEE_ADDRESS  # the Bitcoin Cash address where you want to collect the fees
+FEE_PERCENTAGE  # how much fee you want to charge per tip (over $1)
+TOKEN  # is the Telegram API token for the development bot (not for prod)
+```
+
+## Deployment
+
+Deploys are automatic on `master`.
+
 ## To do
 
-- USD/Fiat conversions
-- Queues with Celery/rq
 - tip by replying
+- Queues with Celery/rq
