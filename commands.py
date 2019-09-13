@@ -91,7 +91,7 @@ def tip(bot, update, args):
                         recipient_username + ' is not a valid username.')
 
 
-    recipient_username = recipient_username[1:]  # remove the '@'
+    recipient_username = recipient_username.replace('@', '')
     sender_username = update.message.from_user.username
 
     if recipient_username == sender_username:
