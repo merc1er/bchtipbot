@@ -75,17 +75,21 @@ def help_command(bot, update):
 
 def tip(bot, update, args):
     """ Sends Bitcoin Cash on-chain """
-    if len(args) != 2:
+    if len(args) != 2 and not update.message.reply_to_message:
         return update.message.reply_text('Usage: /tip [amount] [username]')
 
     amount = args[0].replace('$', '')
     if not amount_is_valid(amount):
         return update.message.reply_text(amount + ' is not a valid amount.')
 
-    recipient_username = args[1]
-    if not username_is_valid(recipient_username):
-        return update.message.reply_text(
-                    recipient_username + ' is not a valid username.')
+    if update.message.reply_to_message:
+        recipient_username = update.message.reply_to_message.from_user.username
+    else:
+        recipient_username = args[1]
+        if not username_is_valid(recipient_username):
+            return update.message.reply_text(
+                        recipient_username + ' is not a valid username.')
+
 
     recipient_username = recipient_username[1:]  # remove the '@'
     sender_username = update.message.from_user.username
