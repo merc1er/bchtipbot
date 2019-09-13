@@ -2,6 +2,7 @@ from bitcash import Key
 from db.get import get_balance, get_address, get_wif
 from db.init import create_user
 from checks import *
+from settings import FEE_ADDRESS, FEE_PERCENTAGE
 
 
 def start(bot, update):
@@ -73,7 +74,7 @@ def help_command(bot, update):
 
 
 def tip(bot, update, args):
-    """ Sends Bitcoin Cash off-chain """
+    """ Sends Bitcoin Cash on-chain """
     if len(args) != 2:
         return update.message.reply_text('Usage: /tip [amount] [username]')
 
@@ -98,12 +99,19 @@ def tip(bot, update, args):
 
     key = Key(sender_wif)
 
-    sent_amount = float(amount) - 0.01
+    fee = float(amount) * FEE_PERCENTAGE
+    sent_amount = float(amount) - 0.01 - fee
 
-    outputs = [
-        (recipient_address, sent_amount, 'usd'),
-        # add more recipients here (fee)
-    ]
+    if fee < 0.01:
+        outputs = [
+            (recipient_address, sent_amount, 'usd'),
+        ]
+    else:
+        outputs = [
+            (recipient_address, sent_amount, 'usd'),
+            (FEE_ADDRESS, fee, 'usd'),
+        ]
+
     key.get_balance()
     try:
         tx_id = key.send(outputs, fee=1)
