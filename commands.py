@@ -98,6 +98,11 @@ def tip(bot, update, args):
     sender_wif = get_wif(sender_username)
 
     key = Key(sender_wif)
+    balance = key.get_balance('usd')
+    # checks the balance
+    if float(amount) > float(balance):
+        return update.message.reply_text('You don\'t have enough funds! ' +
+                                                'Type /deposit to add funds!!')
 
     fee = float(amount) * FEE_PERCENTAGE
     sent_amount = float(amount) - 0.01 - fee
@@ -112,7 +117,6 @@ def tip(bot, update, args):
             (FEE_ADDRESS, fee, 'usd'),
         ]
 
-    key.get_balance()
     try:
         tx_id = key.send(outputs, fee=1)
     except:
