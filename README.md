@@ -42,5 +42,5 @@ Deploys are automatic on `master`.
 
 ## To do
 
-- tip by replying
+- Reply with stickers
 - Queues with Celery/rq
