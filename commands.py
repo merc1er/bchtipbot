@@ -10,12 +10,13 @@ def start(bot, update):
     Create a database entry for [username] unless it exists already.
     """
     first_name = update.message.from_user.first_name
+    info = '. Type /help for the list of commands.'
 
     created = create_user(update.message.from_user.username)
     if created:
-        return update.message.reply_text('Hello ' + first_name)
+        return update.message.reply_text('Hello ' + first_name + info)
     else:
-        return update.message.reply_text('Hello again, ' + first_name)
+        return update.message.reply_text('Hello again, ' + first_name + info)
 
 
 def deposit(bot, update):
