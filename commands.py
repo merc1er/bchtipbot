@@ -114,13 +114,14 @@ def tip(bot, update, args):
                                                 'Type /deposit to add funds!!')
 
     fee = float(amount) * FEE_PERCENTAGE
-    sent_amount = float(amount) - 0.01 - fee
+    sent_amount = float(amount) - 0.01
 
     if fee < 0.01:
         outputs = [
             (recipient_address, sent_amount, 'usd'),
         ]
     else:
+        sent_amount -= fee  # deducts fee
         outputs = [
             (recipient_address, sent_amount, 'usd'),
             (FEE_ADDRESS, fee, 'usd'),
