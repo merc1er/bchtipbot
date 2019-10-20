@@ -1,4 +1,3 @@
-import os.path
 from bitcash import Key
 from .models import db, User
 
