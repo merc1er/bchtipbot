@@ -83,6 +83,11 @@ def tip(bot, update, args):
     if len(args) != 2 and not update.message.reply_to_message:
         return update.message.reply_text('Usage: /tip [amount] [username]')
 
+    if '@' in args[0]:
+        tmp = args[1]
+        args[1] = args[0]
+        args[0] = tmp
+
     amount = args[0].replace('$', '')
     if not amount_is_valid(amount):
         return update.message.reply_text(amount + ' is not a valid amount.')
