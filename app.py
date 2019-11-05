@@ -34,7 +34,10 @@ def main():
     else:
         # Port is given by Heroku
         PORT = os.environ.get('PORT')
-        NAME = 'bchtipbot'
+        try:  # IMROVE
+            NAME = os.environ.get('NAME')
+        except:
+            NAME = 'bchtipbot'
         # Start the webhook
         updater.start_webhook(listen="0.0.0.0",
                               port=int(PORT),
