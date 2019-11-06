@@ -34,7 +34,7 @@ def main():
     else:
         # Port is given by Heroku
         PORT = os.environ.get('PORT')
-        try:  # IMROVE
+        try:
             NAME = os.environ.get('NAME')
         except:
             NAME = 'bchtipbot'
