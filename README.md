@@ -1,4 +1,10 @@
-# BCH Tip Bot
+<div align="center">
+  <img src="tippie.png" width="100">
+</div>
+
+<div align="center">
+  <h3>Bitcoin Cash Telegram tipping bot</h3>
+</div>
 
 ## Usage
 
