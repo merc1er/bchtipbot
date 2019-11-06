@@ -1,11 +1,11 @@
 from peewee import *
-from settings import DEBUG, DATABASE_PINK
+from settings import DEBUG
 import os
 from urllib.parse import urlparse, uses_netloc
 
 
 if DEBUG:
-    db = SqliteDatabase(DATABASE_PINK)
+    db = SqliteDatabase('db.sqlite3')
 else:
     uses_netloc.append('postgres')
     url = urlparse(os.environ['DATABASE_URL'])
