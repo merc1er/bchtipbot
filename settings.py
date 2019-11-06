@@ -14,9 +14,10 @@ except:
     TOKEN = '892772409:AAGQk_Fyz3Uelwvhoq8yUmRXPUuTxnFFIfY'
 
 
-DATABASE_PINK = 'db.sqlite3'
-
 # Your output BCH address
-FEE_ADDRESS = 'bitcoincash:qr02vc2t5yr9fe4ujdpkg99d5d0dgxstfqtgxg7umu'
+try:
+    FEE_ADDRESS = os.environ['FEE_ADDRESS']
+except:
+    FEE_ADDRESS = 'bitcoincash:qr02vc2t5yr9fe4ujdpkg99d5d0dgxstfqtgxg7umu'
 # The fee you want to charge (0.01 is 1%)
 FEE_PERCENTAGE = 0.01
