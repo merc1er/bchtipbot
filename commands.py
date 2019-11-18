@@ -1,4 +1,5 @@
 from bitcash import Key
+import requests
 from db.get import get_balance, get_address, get_wif
 from db.init import create_user
 from checks import *
@@ -140,3 +141,12 @@ def tip(bot, update, args):
     return update.message.reply_text('You sent $' +
             amount + ' to ' + recipient_username)
 
+
+def price(bot, update):
+    """ Fetches and returns the price of BCH (in USD) """
+    endpoint = 'https://www.bitcoin.com/special/rates.json'
+    req = requests.get(endpoint)
+    rate_list = req.json()
+    bch_btc_rate, btc_usd_rate = rate_list[1]['rate'], rate_list[2]['rate']
+    bch_price = round(btc_usd_rate / bch_btc_rate, 2)
+    return update.message.reply_text('1 BCH = US$' + str(bch_price))
