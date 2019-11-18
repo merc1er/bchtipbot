@@ -145,8 +145,13 @@ def tip(bot, update, args):
 def price(bot, update):
     """ Fetches and returns the price of BCH (in USD) """
     endpoint = 'https://www.bitcoin.com/special/rates.json'
-    req = requests.get(endpoint)
+    try:
+        req = requests.get(endpoint)
+    except:
+        return update.message.reply_text('Error while fetching Bitcoin.com API')
+
     rate_list = req.json()
     bch_btc_rate, btc_usd_rate = rate_list[1]['rate'], rate_list[2]['rate']
     bch_price = round(btc_usd_rate / bch_btc_rate, 2)
+
     return update.message.reply_text('1 BCH = US$' + str(bch_price))
