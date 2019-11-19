@@ -6,6 +6,10 @@
   <h3>Bitcoin Cash Telegram tipping bot</h3>
 </div>
 
+<div align="center">
+  <img src="https://travis-ci.com/merc1er/bchtipbot.svg?token=ikFpFZzenHdDVbwQsxJX&branch=master" alt="Build">
+</div>
+
 ## Usage
 
 Simply open https://t.me/BCHtipbot and talk to the bot.
