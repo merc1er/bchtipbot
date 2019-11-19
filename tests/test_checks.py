@@ -20,9 +20,9 @@ class TestAmountIsValid(unittest.TestCase):
 class TestUsernameIsValid(unittest.TestCase):
 
     def test_other_types(self):
-        # Only strings will be passed through Telegram API
-        # e.g. 1 will be '1'
-        pass
+        # username_is_valid should never be passed anything other than a string
+        self.assertRaises(TypeError, checks.username_is_valid, 12)
+        self.assertRaises(TypeError, checks.username_is_valid, 0.1)
 
     def test_bad_usernames(self):
         self.assertFalse(checks.username_is_valid('baduname'))
