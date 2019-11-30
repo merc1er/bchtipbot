@@ -1,5 +1,6 @@
 from bitcash import Key
 import requests
+from telegram import ParseMode
 from db.get import get_address, get_wif
 from db.init import create_user
 from checks import *
@@ -153,10 +154,15 @@ def tip(bot, update, args):
     try:
         tx_id = key.send(outputs, fee=1)
     except:
-        return update.message.reply_text('Transaction failed!')
+        return bot.send_message(
+            chat_id=update.effective_chat.id,
+            text='Transaction failed!',
+            parse_mode=ParseMode.MARKDOWN)
 
-    return update.message.reply_text('You sent $' +
-            amount + ' to ' + recipient_username)
+    return bot.send_message(
+            chat_id=update.effective_chat.id,
+            text='You sent $' + amount + ' to ' + recipient_username,
+            parse_mode=ParseMode.MARKDOWN)
 
 
 def price(bot, update):
@@ -171,4 +177,7 @@ def price(bot, update):
     bch_btc_rate, btc_usd_rate = rate_list[1]['rate'], rate_list[2]['rate']
     bch_price = round(btc_usd_rate / bch_btc_rate, 2)
 
-    return update.message.reply_text('1 BCH = US$' + str(bch_price))
+    return bot.send_message(
+            chat_id=update.effective_chat.id,
+            text='1 BCH = US$' + str(bch_price),
+            parse_mode=ParseMode.MARKDOWN)
