@@ -1,6 +1,6 @@
 from bitcash import Key
 import requests
-from db.get import get_balance, get_address, get_wif
+from db.get import get_address, get_wif
 from db.init import create_user
 from checks import *
 from settings import FEE_ADDRESS, FEE_PERCENTAGE
@@ -31,8 +31,19 @@ def deposit(bot, update):
 def balance(bot, update):
     """ Fetches and returns the balance (in USD) """
     create_user(update.message.from_user.username)
-    balance = get_balance(update.message.from_user.username)
-    return update.message.reply_text('You have: $' + balance)
+    # get USD rate
+    endpoint = 'https://www.bitcoin.com/special/rates.json'
+    r = requests.get(endpoint)
+    data = r.json()
+    rate = data[2]['rate'] / data[1]['rate']
+    # get address balance in satoshi
+    address = get_address(update.message.from_user.username)
+    r = requests.get('https://rest.bitcoin.com/v2/address/details/' + address)
+    data = r.json()
+    balance_raw = (data['balance'] + data['unconfirmedBalance']) * rate
+    balance = round(balance_raw, 2)
+
+    return update.message.reply_text('You have: $' + str(balance))
 
 
 def withdraw(bot, update, args):
