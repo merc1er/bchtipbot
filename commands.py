@@ -7,6 +7,9 @@ from checks import *
 from settings import FEE_ADDRESS, FEE_PERCENTAGE
 
 
+RATE_API = 'https://www.bitcoin.com/special/rates.json'
+
+
 def start(bot, update):
     """ Starts the bot.
     Create a database entry for [username] unless it exists already.
@@ -33,7 +36,7 @@ def balance(bot, update):
     """ Fetches and returns the balance (in USD) """
     create_user(update.message.from_user.username)
     # get USD rate
-    endpoint = 'https://www.bitcoin.com/special/rates.json'
+    endpoint = RATE_API
     r = requests.get(endpoint)
     if r.status_code != 200:
         return update.message.reply_text(f'Unable to contact {endpoint}')
@@ -167,7 +170,7 @@ def tip(bot, update, args):
 
 def price(bot, update):
     """ Fetches and returns the price of BCH (in USD) """
-    endpoint = 'https://www.bitcoin.com/special/rates.json'
+    endpoint = RATE_API
     try:
         req = requests.get(endpoint)
     except:
