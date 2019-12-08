@@ -25,8 +25,16 @@ def start(bot, update):
 
 
 def deposit(bot, update):
-    """ Fetches and returns the Bitcoin Cash address saved in the db """
-    create_user(update.message.from_user.username)
+    """
+    Fetches and returns the Bitcoin Cash address saved in the db if the command
+    was sent in a direct message. Asks to send DM otherwise.
+    """
+    if update.message.chat.type != 'private':  # check if in DM
+        return bot.send_message(
+            chat_id=update.effective_chat.id,
+            text='Direct message me to see your deposit address')
+
+    create_user(update.message.from_user.username)  # check if user is created
     address = get_address(update.message.from_user.username)
     update.message.reply_text('Send Bitcoin Cash to:')
     return update.message.reply_html('<b>{}</b>'.format(address))
@@ -58,6 +66,11 @@ def balance(bot, update):
 
 def withdraw(bot, update, args):
     """ Withdraws BCH to user's wallet """
+    if update.message.chat.type != 'private':  # check if in DM
+        return bot.send_message(
+            chat_id=update.effective_chat.id,
+            text='Direct message me to withdraw your money')
+
     if len(args) != 2:
         return update.message.reply_text('Usage: /withdraw [amount] [address]')
 
