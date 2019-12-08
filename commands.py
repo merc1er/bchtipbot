@@ -32,7 +32,7 @@ def deposit(bot, update):
     if update.message.chat.type != 'private':  # check if in DM
         return bot.send_message(
             chat_id=update.effective_chat.id,
-            text='Direct message me to see your deposit address')
+            text='Private message me to see your deposit address')
 
     create_user(update.message.from_user.username)  # check if user is created
     address = get_address(update.message.from_user.username)
@@ -69,7 +69,7 @@ def withdraw(bot, update, args):
     if update.message.chat.type != 'private':  # check if in DM
         return bot.send_message(
             chat_id=update.effective_chat.id,
-            text='Direct message me to withdraw your money')
+            text='Private message me to withdraw your money')
 
     if len(args) != 2:
         return update.message.reply_text('Usage: /withdraw [amount] [address]')
