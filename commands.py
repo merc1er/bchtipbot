@@ -110,7 +110,8 @@ def help_command(bot, update):
 /balance - Shows your balance in Bitcoin Cash
 /withdraw - Withdraw your funds. Usage: /withdraw $[amount] [address]
 /help - Lists all commands
-/tip - Sends a tip. Usage: /tip [amount] [@username]""")
+/tip - Sends a tip. Usage: /tip [amount] [@username]
+/price - Displays the current price of Bitcoin Cash""")
 
 
 def tip(bot, update, args):
