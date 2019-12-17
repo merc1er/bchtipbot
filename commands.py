@@ -142,6 +142,10 @@ def tip(bot, update, args):
 
     if update.message.reply_to_message:
         recipient_username = update.message.reply_to_message.from_user.username
+        if not recipient_username:
+            return update.message.reply_text(
+                'You cannot tip someone who has not set a username.'
+            )
     else:
         recipient_username = args[1]
         if not checks.username_is_valid(recipient_username):
