@@ -3,31 +3,18 @@ import requests
 from telegram import ParseMode
 from db.get import get_address, get_wif
 from db.init import create_user
-from checks import *
+import checks
 from settings import FEE_ADDRESS, FEE_PERCENTAGE
 
 
 RATE_API = 'https://www.bitcoin.com/special/rates.json'
 
 
-# Helper functions
-def check_username(update):
-    """
-    Checks for username.
-    Returns True if user has a uname set up, False otherwise
-    """
-    if not update.message.from_user.username:
-        update.message.reply_text('You do not have a username. Please create '
-                                  'one in settings to use this bot.')
-        return False
-    return True
-
-
 def start(bot, update):
     """ Starts the bot.
     Create a database entry for [username] unless it exists already.
     """
-    if not check_username(update):
+    if not checks.check_username(update):
         return
     first_name = update.message.from_user.first_name
     info = '. Type /help for the list of commands.'
@@ -44,7 +31,7 @@ def deposit(bot, update):
     Fetches and returns the Bitcoin Cash address saved in the db if the command
     was sent in a direct message. Asks to send DM otherwise.
     """
-    if not check_username(update):
+    if not checks.check_username(update):
         return
     if update.message.chat.type != 'private':  # check if in DM
         return bot.send_message(
@@ -59,7 +46,7 @@ def deposit(bot, update):
 
 def balance(bot, update):
     """ Fetches and returns the balance (in USD) """
-    if not check_username(update):
+    if not checks.check_username(update):
         return
     create_user(update.message.from_user.username)
     # get USD rate
@@ -85,7 +72,7 @@ def balance(bot, update):
 
 def withdraw(bot, update, args):
     """ Withdraws BCH to user's wallet """
-    if not check_username(update):
+    if not checks.check_username(update):
         return
 
     if update.message.chat.type != 'private':  # check if in DM
@@ -97,7 +84,7 @@ def withdraw(bot, update, args):
         return update.message.reply_text('Usage: /withdraw [amount] [address]')
 
     amount = args[0].replace('$', '')
-    if not amount_is_valid(amount):
+    if not checks.amount_is_valid(amount):
         return update.message.reply_text(amount + ' is not a valid amount')
 
     sent_amount = float(amount) - 0.01  # after 1 cent fee
@@ -138,7 +125,7 @@ def help_command(bot, update):
 
 def tip(bot, update, args):
     """ Sends Bitcoin Cash on-chain """
-    if not check_username(update):
+    if not checks.check_username(update):
         return
 
     if len(args) != 2 and not update.message.reply_to_message:
@@ -150,14 +137,14 @@ def tip(bot, update, args):
         args[0] = tmp
 
     amount = args[0].replace('$', '')
-    if not amount_is_valid(amount):
+    if not checks.amount_is_valid(amount):
         return update.message.reply_text(amount + ' is not a valid amount.')
 
     if update.message.reply_to_message:
         recipient_username = update.message.reply_to_message.from_user.username
     else:
         recipient_username = args[1]
-        if not username_is_valid(recipient_username):
+        if not checks.username_is_valid(recipient_username):
             return update.message.reply_text(
                 recipient_username + ' is not a valid username.')
 
