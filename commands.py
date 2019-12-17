@@ -10,10 +10,25 @@ from settings import FEE_ADDRESS, FEE_PERCENTAGE
 RATE_API = 'https://www.bitcoin.com/special/rates.json'
 
 
+# Helper functions
+def check_username(update):
+    """
+    Checks for username.
+    Returns True if user has a uname set up, False otherwise
+    """
+    if not update.message.from_user.username:
+        update.message.reply_text('You do not have a username. Please create '
+                                  'one in settings to use this bot.')
+        return False
+    return True
+
+
 def start(bot, update):
     """ Starts the bot.
     Create a database entry for [username] unless it exists already.
     """
+    if not check_username(update):
+        return
     first_name = update.message.from_user.first_name
     info = '. Type /help for the list of commands.'
 
@@ -29,6 +44,8 @@ def deposit(bot, update):
     Fetches and returns the Bitcoin Cash address saved in the db if the command
     was sent in a direct message. Asks to send DM otherwise.
     """
+    if not check_username(update):
+        return
     if update.message.chat.type != 'private':  # check if in DM
         return bot.send_message(
             chat_id=update.effective_chat.id,
@@ -42,6 +59,8 @@ def deposit(bot, update):
 
 def balance(bot, update):
     """ Fetches and returns the balance (in USD) """
+    if not check_username(update):
+        return
     create_user(update.message.from_user.username)
     # get USD rate
     endpoint = RATE_API
@@ -66,6 +85,9 @@ def balance(bot, update):
 
 def withdraw(bot, update, args):
     """ Withdraws BCH to user's wallet """
+    if not check_username(update):
+        return
+
     if update.message.chat.type != 'private':  # check if in DM
         return bot.send_message(
             chat_id=update.effective_chat.id,
@@ -83,7 +105,7 @@ def withdraw(bot, update, args):
     address = args[1]
     if len(address) != 54 and len(address) != 42:
         return update.message.reply_text(address +
-                                ' is not a valid Bitcoin Cash address.')
+                                         ' is not a valid Bitcoin Cash address.')
     if 'bitcoincash:' not in address:
         address = 'bitcoincash:' + address
 
@@ -116,6 +138,9 @@ def help_command(bot, update):
 
 def tip(bot, update, args):
     """ Sends Bitcoin Cash on-chain """
+    if not check_username(update):
+        return
+
     if len(args) != 2 and not update.message.reply_to_message:
         return update.message.reply_text('Usage: /tip [amount] [username]')
 
@@ -134,8 +159,7 @@ def tip(bot, update, args):
         recipient_username = args[1]
         if not username_is_valid(recipient_username):
             return update.message.reply_text(
-                        recipient_username + ' is not a valid username.')
-
+                recipient_username + ' is not a valid username.')
 
     recipient_username = recipient_username.replace('@', '')
     sender_username = update.message.from_user.username
@@ -152,7 +176,7 @@ def tip(bot, update, args):
     # checks the balance
     if float(amount) > float(balance):
         return update.message.reply_text('You don\'t have enough funds! ' +
-                                                'Type /deposit to add funds!!')
+                                         'Type /deposit to add funds!!')
 
     fee = float(amount) * FEE_PERCENTAGE
     sent_amount = float(amount) - 0.01
@@ -177,9 +201,9 @@ def tip(bot, update, args):
             parse_mode=ParseMode.MARKDOWN)
 
     return bot.send_message(
-            chat_id=update.effective_chat.id,
-            text='You sent $' + amount + ' to ' + recipient_username,
-            parse_mode=ParseMode.MARKDOWN)
+        chat_id=update.effective_chat.id,
+        text='You sent $' + amount + ' to ' + recipient_username,
+        parse_mode=ParseMode.MARKDOWN)
 
 
 def price(bot, update):
@@ -195,6 +219,6 @@ def price(bot, update):
     bch_price = round(btc_usd_rate / bch_btc_rate, 2)
 
     return bot.send_message(
-            chat_id=update.effective_chat.id,
-            text='1 BCH = US$' + str(bch_price),
-            parse_mode=ParseMode.MARKDOWN)
+        chat_id=update.effective_chat.id,
+        text='1 BCH = US$' + str(bch_price),
+        parse_mode=ParseMode.MARKDOWN)
