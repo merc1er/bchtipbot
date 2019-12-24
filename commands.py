@@ -193,8 +193,7 @@ def tip(bot, update, args):
 
     return bot.send_message(
         chat_id=update.effective_chat.id,
-        text='You sent $' + amount + ' to ' + recipient_username,
-        parse_mode=ParseMode.MARKDOWN)
+        text='You sent $' + amount + ' to ' + recipient_username,)
 
 
 def price(bot, update):
