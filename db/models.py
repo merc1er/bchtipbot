@@ -17,6 +17,7 @@ else:
         port=url.port,
     )
 
+
 class User(Model):
     username = CharField(max_length=30, unique=True)
     bch_address = CharField(max_length=54, unique=True)
@@ -24,4 +25,3 @@ class User(Model):
 
     class Meta:
         database = db
-
