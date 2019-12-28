@@ -26,7 +26,7 @@ def main():
     updater.dispatcher.add_handler(CommandHandler('deposit', deposit))
     updater.dispatcher.add_handler(CommandHandler('balance', balance))
     updater.dispatcher.add_handler(CommandHandler('withdraw',
-                                                    withdraw, pass_args=True))
+                                                  withdraw, pass_args=True))
     updater.dispatcher.add_handler(CommandHandler('tip', tip, pass_args=True))
     updater.dispatcher.add_handler(CommandHandler('price', price))
 
@@ -37,14 +37,14 @@ def main():
         PORT = os.environ.get('PORT')
         try:
             NAME = os.environ.get('NAME')
-        except:
+        except KeyError:
             NAME = 'bchtipbot'
         # Start the webhook
         updater.start_webhook(listen="0.0.0.0",
                               port=int(PORT),
                               url_path=TOKEN)
         updater.bot.setWebhook('https://{}.herokuapp.com/{}'.format(
-                                                            NAME, TOKEN))
+            NAME, TOKEN))
 
     updater.idle()
 
