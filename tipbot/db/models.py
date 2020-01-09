@@ -1,7 +1,7 @@
 from peewee import *
-from settings import DEBUG
 import os
 from urllib.parse import urlparse, uses_netloc
+from settings import DEBUG
 
 
 if DEBUG:

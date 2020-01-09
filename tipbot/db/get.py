@@ -1,6 +1,4 @@
-from .init import create_user
-from .models import db, User
-from bitcash import Key
+from .models import User
 
 
 def get_address(username):
