@@ -1,4 +1,5 @@
 from bitcash import Key
+from peewee import IntegrityError
 from .models import db, User
 
 
@@ -16,6 +17,6 @@ def create_user(username):
         )
         db.close()
         return True
-    except:
+    except IntegrityError:
         db.close()
         return False

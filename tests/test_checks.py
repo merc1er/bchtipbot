@@ -1,5 +1,5 @@
 import unittest
-import checks
+from tipbot import checks
 
 
 class TestAmountIsValid(unittest.TestCase):
