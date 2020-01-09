@@ -55,3 +55,5 @@ Deploys are automatic on `master`.
 
 - Reply with stickers
 - Queues with Celery/rq
+- Implement more tests
+- Allow users without a username to use the bot
