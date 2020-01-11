@@ -5,9 +5,7 @@ from db.get import get_address, get_wif
 from db.init import create_user
 import checks
 from settings import FEE_ADDRESS, FEE_PERCENTAGE
-
-
-RATE_API = 'https://www.bitcoin.com/special/rates.json'
+from rates import get_rate
 
 
 def start(bot, update):
@@ -50,12 +48,7 @@ def balance(bot, update):
         return
     create_user(update.message.from_user.username)
     # get USD rate
-    endpoint = RATE_API
-    r = requests.get(endpoint)
-    if r.status_code != 200:
-        return update.message.reply_text(f'Unable to contact {endpoint}')
-    data = r.json()
-    usd_rate = data[2]['rate'] / data[1]['rate']
+    usd_rate = get_rate(update)
     # get address balance in satoshi
     address = get_address(update.message.from_user.username)
     endpoint = ('https://rest.bitcoin.com/v2/address/details/' + address)
@@ -198,15 +191,7 @@ def tip(bot, update, args):
 
 def price(bot, update):
     """ Fetches and returns the price of BCH (in USD) """
-    endpoint = RATE_API
-    try:
-        req = requests.get(endpoint)
-    except:
-        return update.message.reply_text('Error while fetching Bitcoin.com API')
-
-    rate_list = req.json()
-    bch_btc_rate, btc_usd_rate = rate_list[1]['rate'], rate_list[2]['rate']
-    bch_price = round(btc_usd_rate / bch_btc_rate, 2)
+    bch_price = round(get_rate(update))
 
     return bot.send_message(
         chat_id=update.effective_chat.id,
