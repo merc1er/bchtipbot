@@ -28,7 +28,8 @@ def main():
     updater.dispatcher.add_handler(CommandHandler('withdraw',
                                                   withdraw, pass_args=True))
     updater.dispatcher.add_handler(CommandHandler('tip', tip, pass_args=True))
-    updater.dispatcher.add_handler(CommandHandler('price', price))
+    updater.dispatcher.add_handler(CommandHandler('price', price,
+                                                  pass_args=True))
 
     if DEBUG:
         updater.start_polling()

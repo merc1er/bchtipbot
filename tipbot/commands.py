@@ -189,11 +189,12 @@ def tip(bot, update, args):
         text='You sent $' + amount + ' to ' + recipient_username,)
 
 
-def price(bot, update):
+def price(bot, update, args):
     """ Fetches and returns the price of BCH (in USD) """
-    bch_price = round(get_rate(update))
+    currency = args[0].lower() if args else 'usd'
+    bch_price = round(get_rate(update, currency))
 
     return bot.send_message(
         chat_id=update.effective_chat.id,
-        text='1 BCH = US$' + str(bch_price),
+        text='1 BCH = ' + str(bch_price) + ' ' + currency.upper(),
         parse_mode=ParseMode.MARKDOWN)
