@@ -21,7 +21,7 @@ CURRENCY_CODE = {
 def get_rate(update, currency='usd'):
     """ Returns the BCH price fetching Bitcoin.com API """
     if currency not in CURRENCY_CODE:
-        return update.message.reply_text(f'{currency} is not a supported'
+        return update.message.reply_text(f'{currency} is not a supported '
                                          'currency.')
     r = requests.get(RATE_API)
     if r.status_code != 200:
