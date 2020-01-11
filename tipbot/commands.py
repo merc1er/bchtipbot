@@ -55,7 +55,7 @@ def balance(bot, update):
     if r.status_code != 200:
         return update.message.reply_text(f'Unable to contact {endpoint}')
     data = r.json()
-    rate = data[2]['rate'] / data[1]['rate']
+    usd_rate = data[2]['rate'] / data[1]['rate']
     # get address balance in satoshi
     address = get_address(update.message.from_user.username)
     endpoint = ('https://rest.bitcoin.com/v2/address/details/' + address)
@@ -64,7 +64,7 @@ def balance(bot, update):
         return update.message.reply_text(f'Unable to contact {endpoint}')
     data = r.json()
     # calculate balance in USD
-    balance_raw = (data['balance'] + data['unconfirmedBalance']) * rate
+    balance_raw = (data['balance'] + data['unconfirmedBalance']) * usd_rate
     balance = round(balance_raw, 2)
 
     return update.message.reply_text('You have: $' + str(balance))
