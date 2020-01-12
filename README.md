@@ -17,13 +17,13 @@ Simply open https://t.me/BCHtipbot and talk to the bot.
 ### List of commands
 
 ```
-start - Starts the bot
-deposit - Displays your Bitcoin Cash address for top up
-balance - Shows your balance in Bitcoin Cash
-withdraw - Withdraw your funds. Usage: /withdraw [amount] [address]
-help - Lists all commands
-tip - Sends a tip. Usage: /tip [amount] [@username]
-price - Displays the current price of Bitcoin Cash
+/start - Starts the bot
+/deposit - Displays your Bitcoin Cash address for top up
+/balance - Shows your balance in Bitcoin Cash
+/withdraw - Withdraw your funds. Usage: /withdraw [amount] [address]
+/help - Lists all commands
+/tip - Sends a tip. Usage: /tip [amount] [@username]
+/price - Displays the current price of Bitcoin Cash. Usage: /price [currency_code]
 ```
 
 ## Run development server
