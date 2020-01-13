@@ -76,12 +76,6 @@ def withdraw(bot, update, args):
     if len(args) != 2:
         return update.message.reply_text('Usage: /withdraw [amount] [address]')
 
-    amount = args[0].replace('$', '')
-    if not checks.amount_is_valid(amount):
-        return update.message.reply_text(amount + ' is not a valid amount')
-
-    sent_amount = float(amount) - 0.01  # after 1 cent fee
-
     address = args[1]
     if len(address) != 54 and len(address) != 42:
         message = f'{address} is not a valid Bitcoin Cash address.'
@@ -92,14 +86,26 @@ def withdraw(bot, update, args):
     wif = get_wif(update.message.from_user.username)
     key = Key(wif)
 
+    if args[0] == 'all':
+        sent_amount = 1000
+        currency = 'satoshi'
+    else:
+        amount = args[0].replace('$', '')
+        if not checks.amount_is_valid(amount):
+            return update.message.reply_text(amount + ' is not a valid amount')
+        currency = 'usd'
+        sent_amount = float(amount) - 0.01  # after 1 cent fee
+
     outputs = [
-        (address, sent_amount, 'usd'),
-        # add more recipients here
+        (address, sent_amount, currency),
     ]
-    key.get_balance()
+    key.get_unspents()
     try:
-        tx_id = key.send(outputs, fee=1)
-    except:
+        if args[0] == 'all':
+            tx_id = key.send(outputs, fee=1, leftover=address)
+        else:
+            tx_id = key.send(outputs, fee=1)
+    except Exception:
         return update.message.reply_text('Transaction failed!')
 
     return update.message.reply_text('Sent! Transaction ID: ' + tx_id)
