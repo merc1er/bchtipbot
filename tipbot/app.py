@@ -1,5 +1,6 @@
 from telegram.ext import Updater, CommandHandler
 from commands import *
+from admin.commands import stats
 import logging
 import os
 from settings import TOKEN, DEBUG
@@ -30,6 +31,8 @@ def main():
     updater.dispatcher.add_handler(CommandHandler('tip', tip, pass_args=True))
     updater.dispatcher.add_handler(CommandHandler('price', price,
                                                   pass_args=True))
+    # admin commands
+    updater.dispatcher.add_handler(CommandHandler('stats', stats))
 
     if DEBUG:
         updater.start_polling()
