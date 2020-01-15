@@ -1,4 +1,5 @@
 from db.get import count_users
+from settings import ADMIN_LIST
 
 
 def is_admin(command):
@@ -6,7 +7,7 @@ def is_admin(command):
     # check if admin here
 
     def wrapper(*args, **kwargs):
-        if args[1].message.from_user.username == 'merc1er':
+        if args[1].message.from_user.username in ADMIN_LIST:
             return command(*args, **kwargs)
         else:
             return False

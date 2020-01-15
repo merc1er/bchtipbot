@@ -21,3 +21,9 @@ except:
     FEE_ADDRESS = 'bitcoincash:qr02vc2t5yr9fe4ujdpkg99d5d0dgxstfqtgxg7umu'
 # The fee you want to charge (0.01 is 1%)
 FEE_PERCENTAGE = 0.01
+
+
+# List of administrators allowed to use the admin commands
+ADMIN_LIST = [
+    'merc1er',
+]
