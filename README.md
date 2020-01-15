@@ -45,6 +45,7 @@ In `settings.py`, edit:
 FEE_ADDRESS  # the Bitcoin Cash address where you want to collect the fees
 FEE_PERCENTAGE  # how much fee you want to charge per tip (over $1)
 TOKEN  # is the Telegram API token for the development bot (not for prod)
+ADMIN_LIST  # you may add your Telegram username to the list to use the admin commands
 ```
 
 ## Deployment
