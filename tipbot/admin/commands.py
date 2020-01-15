@@ -6,7 +6,10 @@ def is_admin(command):
     # check if admin here
 
     def wrapper(*args, **kwargs):
-        return command(*args, **kwargs)
+        if args[1].message.from_user.username == 'merc1er':
+            return command(*args, **kwargs)
+        else:
+            return False
     return wrapper
 
 
