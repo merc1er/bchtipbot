@@ -62,7 +62,10 @@ def withdraw(bot, update, args):
             text='Private message me to withdraw your money')
 
     if len(args) != 2:
-        return update.message.reply_text('Usage: /withdraw [amount] [address]')
+        message = 'Usage: /withdraw [amount] [address]\n\n'\
+            'You may also withdraw everything at once using:'\
+            ' /withdraw all [address]'
+        return update.message.reply_text(message)
 
     address = args[1]
     if len(address) != 54 and len(address) != 42:
