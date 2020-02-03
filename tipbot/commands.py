@@ -1,5 +1,4 @@
 from bitcash import Key
-import requests
 from telegram import ParseMode
 from db.get import get_address, get_wif
 from db.init import create_user
@@ -47,19 +46,8 @@ def balance(bot, update):
     if not checks.check_username(update):
         return
     create_user(update.message.from_user.username)
-    # get USD rate
-    usd_rate = get_rate(update)
-    # get address balance in satoshi
-    address = get_address(update.message.from_user.username)
-    endpoint = ('https://rest.bitcoin.com/v2/address/details/' + address)
-    r = requests.get(endpoint)
-    if r.status_code != 200:
-        return update.message.reply_text(f'Unable to contact {endpoint}')
-    data = r.json()
-    # calculate balance in USD
-    balance_raw = (data['balance'] + data['unconfirmedBalance']) * usd_rate
-    balance = round(balance_raw, 2)
-
+    key = Key(get_wif(update.message.from_user.username))
+    balance = key.get_balance('usd')
     return update.message.reply_text('You have: $' + str(balance))
 
 
