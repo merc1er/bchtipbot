@@ -84,9 +84,7 @@ def withdraw(bot, update, args):
         currency = 'usd'
         sent_amount = float(amount) - 0.01  # after 1 cent fee
 
-    outputs = [
-        (address, sent_amount, currency),
-    ]
+    outputs = [(address, sent_amount, currency), ]
     key.get_unspents()
     try:
         if args[0] == 'all':
@@ -171,8 +169,8 @@ def tip(bot, update, args):
         ]
 
     try:
-        tx_id = key.send(outputs, fee=1)
-    except:
+        key.send(outputs, fee=1)
+    except Exception:
         return bot.send_message(
             chat_id=update.effective_chat.id,
             text='Transaction failed!',
