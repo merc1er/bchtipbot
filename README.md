@@ -32,7 +32,7 @@ Run the following commands:
 
 ```shell
 pip install -r requirements.txt
-python app.py
+python tipbot/app.py
 ```
 
 Credentials and API keys are stored in `settings.py`
