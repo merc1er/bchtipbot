@@ -67,12 +67,9 @@ def withdraw(bot, update, args):
             ' /withdraw all [address]'
         return update.message.reply_text(message)
 
-    address = args[1]
-    if len(address) != 54 and len(address) != 42:
-        message = f'{address} is not a valid Bitcoin Cash address.'
-        return update.message.reply_text(message)
-    if 'bitcoincash:' not in address:
-        address = 'bitcoincash:' + address
+    address = checks.check_address(update, args[1])
+    if not address:  # does not send anything if address is False
+        return
 
     wif = get_wif(update.message.from_user.username)
     key = Key(wif)

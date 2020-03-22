@@ -34,3 +34,19 @@ def username_is_valid(username):
         return False
     # TODO: check for special characters
     return True
+
+
+def check_address(update, address):
+    """
+    Checks if a BCH address is correct
+    It also prepends 'bitcoincash:' prefix if missing
+
+    Returns the BCH address if correct, False otherwise
+    """
+    if len(address) != 54 and len(address) != 42:
+        message = f'{address} is not a valid Bitcoin Cash address.'
+        update.message.reply_text(message)
+        return False
+    if 'bitcoincash:' not in address:
+        address = 'bitcoincash:' + address
+    return address
