@@ -11,6 +11,10 @@ except KeyError:
 try:
     TOKEN = os.environ['TOKEN']
 except KeyError:
+    # This Token is for the test bot.
+    # It is recommended that you create your own bot for testing and create the
+    # TOKEN environment variable.
+    # I will still leave my test token here for quick testing.
     TOKEN = '892772409:AAGQk_Fyz3Uelwvhoq8yUmRXPUuTxnFFIfY'
 
 
