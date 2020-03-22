@@ -1,5 +1,6 @@
 import unittest
 from tipbot import checks
+from .samples import *
 
 
 class TestAmountIsValid(unittest.TestCase):
@@ -33,6 +34,17 @@ class TestUsernameIsValid(unittest.TestCase):
 
     def test_good_username(self):
         self.assertTrue(checks.username_is_valid('@merc1er'))
+
+
+class TestCheckAddress(unittest.TestCase):
+
+    def test_correct_address(self):
+        self.assertEqual(checks.check_address(UPDATE, ADDRESS), ADDRESS)
+
+    def test_correct_no_prefix(self):
+        self.assertEqual(checks.check_address(UPDATE, ADDR_NO_PREFIX), ADDRESS)
+
+    # add tests for incorrect addresses
 
 
 if __name__ == '__main__':
