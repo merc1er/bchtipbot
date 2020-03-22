@@ -50,7 +50,7 @@ ADMIN_LIST  # you may add your Telegram username to the list to use the admin co
 
 ## Deployment
 
-Deploys are automatic on `master`.
+Deployments are automatic on `master` if tests pass.
 
 ## To do
 
