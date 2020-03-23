@@ -117,6 +117,8 @@ def tip(bot, update, args):
         return update.message.reply_text('Usage: /tip [amount] [username]')
 
     if '@' in args[0]:
+        # this swaps args[0] and args[1] in case user input username before
+        # amount (e.g. /tip @merc1er $1) - the latter will still work
         tmp = args[1]
         args[1] = args[0]
         args[0] = tmp
@@ -129,8 +131,7 @@ def tip(bot, update, args):
         recipient_username = update.message.reply_to_message.from_user.username
         if not recipient_username:
             return update.message.reply_text(
-                'You cannot tip someone who has not set a username.'
-            )
+                'You cannot tip someone who has not set a username.')
     else:
         recipient_username = args[1]
         if not checks.username_is_valid(recipient_username):
@@ -158,9 +159,7 @@ def tip(bot, update, args):
     sent_amount = float(amount) - 0.01
 
     if fee < 0.01:
-        outputs = [
-            (recipient_address, sent_amount, 'usd'),
-        ]
+        outputs = [(recipient_address, sent_amount, 'usd'), ]
     else:
         sent_amount -= fee  # deducts fee
         outputs = [
