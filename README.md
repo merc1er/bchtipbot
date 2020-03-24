@@ -58,3 +58,7 @@ Deployments are automatic on `master` if tests pass.
 - Queues with Celery/rq
 - Implement more tests
 - Allow users without a username to use the bot
+
+## Support me
+
+Bitcoin Cash: `bitcoincash:qqtlujldtcc65dts087luzuq77s0m5xxsqxyl8scdt`
