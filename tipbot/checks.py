@@ -7,8 +7,10 @@ def check_username(update):
     Returns True if user has a uname set up, False otherwise
     """
     if not update.message.from_user.username:
-        update.message.reply_text('You do not have a username. Please create '
-                                  'one in settings to use this bot.')
+        update.message.reply_text(
+            "You do not have a username. Please create "
+            "one in settings to use this bot."
+        )
         return False
     return True
 
@@ -27,7 +29,7 @@ def amount_is_valid(amount):
 
 def username_is_valid(username):
     """ Checks if a Telegram username is valid """
-    if username[0] != '@':
+    if username[0] != "@":
         return False
     username = username[1:]  # remove the '@'
     if len(username) < 5 or len(username) > 30:
@@ -44,9 +46,9 @@ def check_address(update, address):
     Returns the BCH address if correct, False otherwise
     """
     if len(address) != 54 and len(address) != 42:
-        message = f'{address} is not a valid Bitcoin Cash address.'
+        message = f"{address} is not a valid Bitcoin Cash address."
         update.message.reply_text(message)
         return False
-    if 'bitcoincash:' not in address:
-        address = 'bitcoincash:' + address
+    if "bitcoincash:" not in address:
+        address = "bitcoincash:" + address
     return address

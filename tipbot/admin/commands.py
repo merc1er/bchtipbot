@@ -11,9 +11,10 @@ def is_admin(command):
             return command(*args, **kwargs)
         else:
             return False
+
     return wrapper
 
 
 @is_admin
 def stats(bot, update):
-    return update.message.reply_text('Users: ' + str(count_users()))
+    return update.message.reply_text("Users: " + str(count_users()))

@@ -5,10 +5,10 @@ from settings import DEBUG
 
 
 if DEBUG:
-    db = SqliteDatabase('db.sqlite3')
+    db = SqliteDatabase("db.sqlite3")
 else:
-    uses_netloc.append('postgres')
-    url = urlparse(os.environ['DATABASE_URL'])
+    uses_netloc.append("postgres")
+    url = urlparse(os.environ["DATABASE_URL"])
     db = PostgresqlDatabase(
         database=url.path[1:],
         user=url.username,

@@ -10,11 +10,7 @@ def create_user(username):
     db.connect(reuse_if_open=True)
     key = Key()
     try:
-        User.create(
-            username=username,
-            bch_address=key.address,
-            wif=key.to_wif()
-        )
+        User.create(username=username, bch_address=key.address, wif=key.to_wif())
         db.close()
         return True
     except IntegrityError:

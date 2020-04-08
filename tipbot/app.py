@@ -10,7 +10,7 @@ from db.models import db, User
 if DEBUG:
     logging.basicConfig(
         level=logging.DEBUG,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
 
@@ -22,36 +22,31 @@ def main():
     updater = Updater(TOKEN)
 
     # Commands
-    updater.dispatcher.add_handler(CommandHandler('start', start))
-    updater.dispatcher.add_handler(CommandHandler('help', help_command))
-    updater.dispatcher.add_handler(CommandHandler('deposit', deposit))
-    updater.dispatcher.add_handler(CommandHandler('balance', balance))
-    updater.dispatcher.add_handler(CommandHandler('withdraw',
-                                                  withdraw, pass_args=True))
-    updater.dispatcher.add_handler(CommandHandler('tip', tip, pass_args=True))
-    updater.dispatcher.add_handler(CommandHandler('price', price,
-                                                  pass_args=True))
+    updater.dispatcher.add_handler(CommandHandler("start", start))
+    updater.dispatcher.add_handler(CommandHandler("help", help_command))
+    updater.dispatcher.add_handler(CommandHandler("deposit", deposit))
+    updater.dispatcher.add_handler(CommandHandler("balance", balance))
+    updater.dispatcher.add_handler(CommandHandler("withdraw", withdraw, pass_args=True))
+    updater.dispatcher.add_handler(CommandHandler("tip", tip, pass_args=True))
+    updater.dispatcher.add_handler(CommandHandler("price", price, pass_args=True))
     # admin commands
-    updater.dispatcher.add_handler(CommandHandler('stats', stats))
+    updater.dispatcher.add_handler(CommandHandler("stats", stats))
 
     if DEBUG:
         updater.start_polling()
     else:
         # Port is given by Heroku
-        PORT = os.environ.get('PORT')
+        PORT = os.environ.get("PORT")
         try:
-            NAME = os.environ.get('NAME')
+            NAME = os.environ.get("NAME")
         except KeyError:
-            NAME = 'bchtipbot'
+            NAME = "bchtipbot"
         # Start the webhook
-        updater.start_webhook(listen="0.0.0.0",
-                              port=int(PORT),
-                              url_path=TOKEN)
-        updater.bot.setWebhook('https://{}.herokuapp.com/{}'.format(
-            NAME, TOKEN))
+        updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path=TOKEN)
+        updater.bot.setWebhook("https://{}.herokuapp.com/{}".format(NAME, TOKEN))
 
     updater.idle()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
