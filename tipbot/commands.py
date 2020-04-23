@@ -198,7 +198,12 @@ def tip(bot, update, args):
 def price(bot, update, args):
     """ Fetches and returns the price of BCH (in USD) """
     currency = args[0].upper() if args else "USD"
-    bch_price = round(get_rate(update, currency))
+
+    # fetches rate and rounds to appropriate decimal
+    if currency == "BTC":
+        bch_price = round(get_rate(update, currency), 4)
+    else:
+        bch_price = round(get_rate(update, currency))
 
     return bot.send_message(
         chat_id=update.effective_chat.id,
