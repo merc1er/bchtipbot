@@ -1,4 +1,4 @@
-python-telegram-bot==12.2.0
+python-telegram-bot==12.6.1
 bitcash==0.5.3.5
 peewee==3.13.3
 psycopg2
