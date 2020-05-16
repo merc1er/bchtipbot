@@ -35,11 +35,11 @@ pip install -r requirements.txt
 python3 tipbot/app.py
 ```
 
-Credentials and API keys are stored in `settings.py`
+Credentials and API keys are stored in environment variables (recommended) or in `settings.py` (not recommended for production).
 
 #### Customize the bot
 
-In `settings.py`, edit:
+⚠️ Add the following environment variables:
 
 ```shell
 FEE_ADDRESS  # the Bitcoin Cash address where you want to collect the fees
@@ -51,6 +51,8 @@ ADMIN_LIST  # you may add your Telegram username to the list to use the admin co
 ## Deployment
 
 Deployments are automatic on `master` if tests pass.
+
+To deploy your own bot, add the environment variables found in the section above (⚠️) and read **[this page](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Hosting-your-bot)**.
 
 ## To do
 
