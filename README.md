@@ -60,6 +60,7 @@ To deploy your own bot, add the environment variables found in the section above
 - Queues with Celery/rq
 - Implement more tests
 - Allow users without a username to use the bot
+- Sometimes the bot doesn't get triggered with the /tip command while not admin
 
 ## Support me
 
