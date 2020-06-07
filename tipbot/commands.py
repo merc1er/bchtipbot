@@ -116,12 +116,19 @@ def help_command(bot, update):
     )
 
 
-def tip(bot, update, args):
+def tip(bot, update, args, satoshi=False):
     """ Sends Bitcoin Cash on-chain """
     if not checks.check_username(update):
         return
 
-    if len(args) != 2 and not update.message.reply_to_message:
+    try:  # in case the user wants to tip satoshis
+        if args[1] == "satoshi" or args[1] == "satoshis":
+            satoshi = True
+            args[1] = args[2]
+    except IndexError:
+        pass
+
+    if len(args) < 2 and not update.message.reply_to_message:
         return update.message.reply_text("Usage: /tip [amount] [username]")
 
     if "@" in args[0]:
@@ -161,7 +168,7 @@ def tip(bot, update, args):
     key = Key(sender_wif)
     balance = key.get_balance("usd")
     # checks the balance
-    if float(amount) > float(balance):
+    if float(amount) > float(balance) and not satoshi:
         return update.message.reply_text(
             "You don't have enough funds! " + "Type /deposit to add funds!!"
         )
@@ -169,10 +176,10 @@ def tip(bot, update, args):
     fee = float(amount) * FEE_PERCENTAGE
     sent_amount = float(amount) - 0.01
 
-    if fee < 0.01:  # if the bot fee is less than 1 cent, don't take any fee
-        outputs = [
-            (recipient_address, sent_amount, "usd"),
-        ]
+    if satoshi:  # if user is sending satoshis
+        outputs = [(recipient_address, amount, "satoshi")]
+    elif fee < 0.01:  # if the bot fee is less than 1 cent, don't take any fee
+        outputs = [(recipient_address, sent_amount, "usd")]
     else:
         sent_amount -= fee  # deducts fee
         outputs = [
@@ -189,10 +196,14 @@ def tip(bot, update, args):
             parse_mode=ParseMode.MARKDOWN,
         )
 
+    if satoshi:
+        message = "You sent " + amount + " satoshis to " + recipient_username
+    else:
+        message = "You sent $" + amount + " to " + recipient_username
     return bot.send_message(
-        chat_id=update.effective_chat.id,
-        text="You sent $" + amount + " to " + recipient_username,
-    )
+            chat_id=update.effective_chat.id,
+            text=message,
+        )
 
 
 def price(bot, update, args):
