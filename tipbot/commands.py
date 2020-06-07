@@ -200,10 +200,7 @@ def tip(bot, update, args, satoshi=False):
         message = "You sent " + amount + " satoshis to " + recipient_username
     else:
         message = "You sent $" + amount + " to " + recipient_username
-    return bot.send_message(
-            chat_id=update.effective_chat.id,
-            text=message,
-        )
+    return bot.send_message(chat_id=update.effective_chat.id, text=message)
 
 
 def price(bot, update, args):
