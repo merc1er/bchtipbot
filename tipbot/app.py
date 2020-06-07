@@ -25,7 +25,7 @@ def main():
     updater.dispatcher.add_handler(CommandHandler("start", start))
     updater.dispatcher.add_handler(CommandHandler("help", help_command))
     updater.dispatcher.add_handler(CommandHandler("deposit", deposit))
-    updater.dispatcher.add_handler(CommandHandler("balance", balance))
+    updater.dispatcher.add_handler(CommandHandler("balance", balance,  pass_args=True))
     updater.dispatcher.add_handler(CommandHandler("withdraw", withdraw, pass_args=True))
     updater.dispatcher.add_handler(CommandHandler("tip", tip, pass_args=True))
     updater.dispatcher.add_handler(CommandHandler("price", price, pass_args=True))

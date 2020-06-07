@@ -42,14 +42,30 @@ def deposit(bot, update):
     return update.message.reply_html("<b>{}</b>".format(address))
 
 
-def balance(bot, update):
+def balance(bot, update, args):
     """ Fetches and returns the balance (in USD) """
+    currency = args[0].lower() if args else "usd"
+    if currency == "satoshis":  # in case user uses plural
+        currency = "satoshi"
+
     if not checks.check_username(update):
         return
     create_user(update.message.from_user.username)
     key = Key(get_wif(update.message.from_user.username))
-    balance = key.get_balance("usd")
-    return update.message.reply_text("You have: $" + str(balance))
+    try:
+        balance = key.get_balance(currency)
+    except KeyError:
+        return update.message.reply_text(
+            currency + " is not a supported currency")
+
+    # display the message
+    if currency == "usd":  # better display for USD (default)
+        currency = "$"
+    message = f"You have: {currency.upper()}" + str(balance)
+    if currency == "satoshi":  # better display for satoshis
+        message = "You have: " + str(balance) + " satoshis"
+
+    return update.message.reply_text(message)
 
 
 def withdraw(bot, update, args):
@@ -204,7 +220,7 @@ def tip(bot, update, args, satoshi=False):
 
 
 def price(bot, update, args):
-    """ Fetches and returns the price of BCH (in USD) """
+    """ Fetches and returns the price of BCH """
     currency = args[0].upper() if args else "USD"
 
     # fetches rate and rounds to appropriate decimal
