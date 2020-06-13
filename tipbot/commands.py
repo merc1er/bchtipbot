@@ -190,10 +190,10 @@ def tip(bot, update, args, satoshi=False):
         )
 
     fee = float(amount) * FEE_PERCENTAGE
-    sent_amount = float(amount) - 0.01
+    sent_amount = float(amount)
 
     if satoshi:  # if user is sending satoshis
-        outputs = [(recipient_address, amount, "satoshi")]
+        outputs = [(recipient_address, sent_amount, "satoshi")]
     elif fee < 0.01:  # if the bot fee is less than 1 cent, don't take any fee
         outputs = [(recipient_address, sent_amount, "usd")]
     else:
