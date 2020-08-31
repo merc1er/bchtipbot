@@ -2,7 +2,7 @@ import subprocess
 
 
 def main():
-    subprocess.call(["python", "-m", "unittest", "tests.test_checks"])
+    subprocess.call(["python", "-m", "unittest"])
     print("\n\nTests completed.")
 
 
