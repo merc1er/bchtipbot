@@ -245,7 +245,8 @@ def playmo_get_game_overview(bot, update, args):
     game_details = get_game_overview(int(args[0]))
     title = game_details.get("title")
     fee = game_details.get("entrance_fee")
-    text = f"Game: {title}\nEntrance fee: {fee} mo"
+    fee_usd = round(fee * get_rate(update) / 100000, 2)
+    text = f"Game: {title}\nEntrance fee: {fee} mo (~{fee_usd} USD)"
     return bot.send_message(
         chat_id=update.effective_chat.id,
         text=text,

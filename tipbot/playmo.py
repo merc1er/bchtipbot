@@ -32,10 +32,9 @@ def get_game_overview(game_id):
     #################################################
     # Game title
     title = game_details.get("details")[0].get("mod_inputs").get("title")
-    # Entrance fee (in mo and USD)
+    # Entrance fee (in mo)
     entrance_fee = round(
         game_details.get("details")[0].get("mod_inputs").get("bet_size") / 1000
     )
-    # entrance_fee_usd = entrance_fee * bch_rate / 100000
 
     return {"title": title, "entrance_fee": entrance_fee}
