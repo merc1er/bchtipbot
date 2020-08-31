@@ -5,6 +5,7 @@ from db.init import create_user
 import checks
 from settings import FEE_ADDRESS, FEE_PERCENTAGE
 from rates import get_rate
+from playmo import get_game_overview
 
 
 def start(bot, update):
@@ -232,5 +233,21 @@ def price(bot, update, args):
     return bot.send_message(
         chat_id=update.effective_chat.id,
         text="1 BCH = " + str(bch_price) + " " + currency,
+        parse_mode=ParseMode.MARKDOWN,
+    )
+
+
+#########################
+# Playmo.gg integration #
+#########################
+def playmo_get_game_overview(bot, update, args):
+    # check args[0] here
+    game_details = get_game_overview(int(args[0]))
+    title = game_details.get("title")
+    fee = game_details.get("entrance_fee")
+    text = f"Game: {title}\nEntrance fee: {fee} mo"
+    return bot.send_message(
+        chat_id=update.effective_chat.id,
+        text=text,
         parse_mode=ParseMode.MARKDOWN,
     )
