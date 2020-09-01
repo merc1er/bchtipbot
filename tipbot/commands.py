@@ -5,7 +5,7 @@ from db.init import create_user
 import checks
 from settings import FEE_ADDRESS, FEE_PERCENTAGE
 from rates import get_rate
-from playmo import get_game_overview
+from playmo import get_game_overview, game_countdown
 
 
 def start(bot, update):
@@ -246,7 +246,12 @@ def playmo_get_game_overview(bot, update, args):
     title = game_details.get("title")
     fee = game_details.get("entrance_fee")
     fee_usd = round(fee * get_rate(update) / 100000, 2)
+    start = game_countdown(game_details.get("start"))
     text = f"Game: {title}\nEntrance fee: {fee} mo (~{fee_usd} USD)"
+    if start[0] < 0 or start[1] < 0 or start[2] < 0:
+        text += "\nDeadline expired"
+    else:
+        text += f"\nStart: {start[0]} days, {start[1]} hours, {start[2]} mins"
     return bot.send_message(
         chat_id=update.effective_chat.id,
         text=text,

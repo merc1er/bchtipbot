@@ -1,4 +1,5 @@
 """This module interacts with playmo.gg's API"""
+import datetime
 import requests
 
 
@@ -36,5 +37,19 @@ def get_game_overview(game_id):
     entrance_fee = round(
         game_details.get("details")[0].get("mod_inputs").get("bet_size") / 1000
     )
+    # Cutoff time
+    start = game_details.get("details")[0].get("mod_inputs").get("start")
 
-    return {"title": title, "entrance_fee": entrance_fee}
+    return {"title": title, "entrance_fee": entrance_fee, "start": start}
+
+
+def game_countdown(dt):
+    """Calculate the time left before a game"""
+    start = datetime.datetime.fromisoformat(dt[:-1])
+    now = datetime.datetime.utcnow()
+    td = start - now
+    return days_hours_minutes(td)
+
+
+def days_hours_minutes(td):
+    return td.days, td.seconds // 3600, (td.seconds // 60) % 60
