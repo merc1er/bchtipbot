@@ -39,8 +39,20 @@ def get_game_overview(game_id):
     )
     # Cutoff time
     start = game_details.get("details")[0].get("mod_inputs").get("start")
+    # Number of players
+    players = len(
+        game_details.get("details")[0].get("mod_inputs").get("outcome")
+    )
+    max_players = game_details.get("details")[0].get("mod_inputs")\
+        .get("max_players")
 
-    return {"title": title, "entrance_fee": entrance_fee, "start": start}
+    return {
+        "title": title,
+        "entrance_fee": entrance_fee,
+        "start": start,
+        "players": players,
+        "max_players": max_players,
+    }
 
 
 def game_countdown(dt):

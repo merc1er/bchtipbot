@@ -245,9 +245,12 @@ def playmo_get_game_overview(bot, update, args):
     game_details = get_game_overview(int(args[0]))
     title = game_details.get("title")
     fee = game_details.get("entrance_fee")
+    players = game_details.get("players")
+    max_players = game_details.get("max_players")
     fee_usd = round(fee * get_rate(update) / 100000, 2)
     start = game_countdown(game_details.get("start"))
     text = f"Game: {title}\nEntrance fee: {fee} mo (~{fee_usd} USD)"
+    text += f"\nPlayers: {players}/{max_players}"
     if start[0] < 0 or start[1] < 0 or start[2] < 0:
         text += "\nDeadline expired"
     else:
