@@ -255,8 +255,11 @@ def playmo_get_game_overview(bot, update, args):
         text += "\nDeadline expired"
     else:
         text += f"\nStart: {start[0]} days, {start[1]} hours, {start[2]} mins"
+    # add link to game
+    text += f"\n[See on Playmo](https://playmo.gg/game/{args[0]})"
     return bot.send_message(
         chat_id=update.effective_chat.id,
         text=text,
         parse_mode=ParseMode.MARKDOWN,
+        disable_web_page_preview=True,
     )
