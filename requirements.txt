@@ -1,5 +1,5 @@
 python-telegram-bot==12.7
-bitcash==0.5.3.6
+bitcash==0.5.4
 peewee==3.13.3
 psycopg2
 requests==2.24.0
