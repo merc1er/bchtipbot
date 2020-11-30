@@ -12,11 +12,15 @@
   <a href="https://www.codefactor.io/repository/github/merc1er/bchtipbot"><img src="https://www.codefactor.io/repository/github/merc1er/bchtipbot/badge" alt="CodeFactor" /></a>
 </div>
 
-## Usage
+---
 
-Simply open https://t.me/BCHtipbot and talk to the bot.
+### 📱 Usage
+
+**Simply open https://t.me/BCHtipbot and talk to the bot.**
 
 ### List of commands
+
+##### Tipping
 
 ```
 /start - Starts the bot
@@ -25,10 +29,21 @@ Simply open https://t.me/BCHtipbot and talk to the bot.
 /withdraw - Withdraw your funds. Usage: /withdraw amount|all address
 /help - Lists all commands
 /tip - Sends a tip. Usage: /tip amount [@username]
+```
+
+Note that you can also tip satoshis with, for example: `/tip 2000 satoshi @merc1er`.
+
+##### Price
+
+```
 /price - Displays the current price of Bitcoin Cash. Usage: /price [currency_code]
 ```
 
-## Run development server
+For example: `/price` (defaults to USD), `/price eur`, `price BTC` and so on.
+
+---
+
+### ⚙️ Run development server
 
 Run the following commands:
 
@@ -50,20 +65,26 @@ TOKEN  # is the Telegram API token for the development bot (not for prod)
 ADMIN_LIST  # you may add your Telegram username to the list to use the admin commands
 ```
 
-## Deployment
+---
+
+### 🚀 Deployment
 
 Deployments are automatic on `master` if tests pass.
 
 To deploy your own bot, add the environment variables found in the section above (⚠️) and read **[this page](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Hosting-your-bot)**.
 
-## To do
+---
+
+### To do
 
 - Reply with stickers
 - Queues with Celery/rq
 - Implement more tests
 - Allow users without a username to use the bot
-- Sometimes the bot doesn't get triggered with the /tip command while not admin
+- Sometimes the bot doesn't get triggered with the `/tip` command while not admin
 
-## Support me
+---
+
+### Support me
 
 Bitcoin Cash: `bitcoincash:qqtlujldtcc65dts087luzuq77s0m5xxsqxyl8scdt`
