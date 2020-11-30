@@ -18,7 +18,7 @@
 
 **Simply open https://t.me/BCHtipbot and talk to the bot.**
 
-### List of commands
+#### List of commands
 
 ##### Tipping
 
@@ -40,6 +40,14 @@ Note that you can also tip satoshis with, for example: `/tip 2000 satoshi @merc1
 ```
 
 For example: `/price` (defaults to USD), `/price eur`, `price BTC` and so on.
+
+##### [Playmo](https://playmo.gg) integration
+
+```
+/playmo - Shows a Playmo event data. Usage: /playmo game_id
+```
+
+For example: `/playmo 384`.
 
 ---
 
