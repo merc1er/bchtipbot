@@ -187,7 +187,7 @@ def get_rate(update, currency="USD"):
         )
 
     r = requests.get(RATE_API)
-    if r.status_code != 200:
+    if r.status_code != 200:  # pragma: no cover
         return update.message.reply_text(f"Unable to contact {RATE_API}")
 
     data = r.json()["data"]
