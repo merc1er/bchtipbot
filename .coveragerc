@@ -1,6 +1,8 @@
 [run]
 source =
     tipbot
+omit =
+    tipbot/settings.py
 branch = True
 
 [report]
