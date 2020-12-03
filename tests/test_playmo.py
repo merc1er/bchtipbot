@@ -16,3 +16,10 @@ class TestGameOverview(unittest.TestCase):
         info = playmo.get_game_overview(224)
         self.assertEqual(info.get("title"), "Fortnite Mini Battle Royale")
         self.assertEqual(info.get("entrance_fee"), 500)
+
+
+class TestConversion(unittest.TestCase):
+
+    def test_game_countdown(self):
+        dt = playmo.game_countdown('2020-12-03T09:15:13Z')
+        self.assertLess(dt[0], 0)
