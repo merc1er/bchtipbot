@@ -62,7 +62,26 @@ python3 tipbot/app.py
 
 Credentials and API keys are stored in environment variables (recommended) or in `settings.py` (not recommended for production).
 
-#### Customize the bot
+
+##### Run tests
+
+Simply do:
+
+```shell
+python run_tests.py
+```
+
+Or, if you want to check coverage, do:
+
+```shell
+pip install coverage  # if you don't have it already
+coverage run -m unittest
+coverage html
+```
+
+then open the `htmlcov/index.html` page in a browser.
+
+##### Customize the bot
 
 ⚠️ Add the following environment variables:
 
