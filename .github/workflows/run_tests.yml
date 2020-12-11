@@ -16,9 +16,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Install pytest
-        run: pip install pytest pytest-cov
+        run: pip install pytest coverage
       - name: Run tests
-        run: pytest --cov=./ --cov-report=xml
+        run: |
+          coverage run -m pytest
+          coverage xml
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
