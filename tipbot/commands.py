@@ -51,6 +51,12 @@ def balance(bot, update, args):
 
     if not checks.check_username(update):
         return
+    if update.message.chat.type != "private":  # check if in DM
+        return bot.send_message(
+            chat_id=update.effective_chat.id,
+            text="Private message me to see your balance",
+        )
+
     create_user(update.message.from_user.username)
     key = Key(get_wif(update.message.from_user.username))
     try:
