@@ -19,10 +19,7 @@ except KeyError:
 
 
 # Your output BCH address
-try:
-    FEE_ADDRESS = os.environ["FEE_ADDRESS"]
-except KeyError:
-    FEE_ADDRESS = "bitcoincash:qr02vc2t5yr9fe4ujdpkg99d5d0dgxstfqtgxg7umu"
+FEE_ADDRESS = "bitcoincash:qrp4rsv05s5stsec8z7q8hjujvhnggf4scqpu2ezme"
 # The fee you want to charge (0.01 is 1%)
 FEE_PERCENTAGE = 0.01
 
