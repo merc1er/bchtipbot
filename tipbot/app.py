@@ -37,10 +37,6 @@ def main():
     )
     # admin commands
     updater.dispatcher.add_handler(CommandHandler("stats", stats))
-    # Playmo commands
-    updater.dispatcher.add_handler(
-        CommandHandler("playmo", playmo_get_game_overview, pass_args=True)
-    )
 
     if DEBUG:
         updater.start_polling()

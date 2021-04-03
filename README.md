@@ -42,16 +42,6 @@ Note that you can also tip satoshis with, for example: `/tip 2000 satoshi @merc1
 
 For example: `/price` (defaults to USD), `/price eur`, `price BTC` and so on.
 
-##### [Playmo](https://playmo.gg) integration
-
-```
-/playmo - Shows a Playmo event data. Usage: /playmo game_id
-```
-
-For example: `/playmo 384`.
-
----
-
 ### ⚙️ Run development server
 
 Run the following commands:
@@ -115,4 +105,4 @@ To deploy your own bot, add the environment variables found in the section above
 
 ### Support me
 
-Bitcoin Cash: `bitcoincash:qqtlujldtcc65dts087luzuq77s0m5xxsqxyl8scdt`
+Bitcoin Cash: `bitcoincash:qrzd59chq6052tj9fdsllnc55wk5jwpjxqg4crtfwr`

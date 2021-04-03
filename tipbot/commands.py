@@ -5,7 +5,6 @@ from db.init import create_user
 import checks
 from settings import FEE_ADDRESS, FEE_PERCENTAGE
 from rates import get_rate
-from playmo import get_game_overview, game_countdown
 
 
 def start(bot, update):
@@ -240,32 +239,4 @@ def price(bot, update, args):
         chat_id=update.effective_chat.id,
         text="1 BCH = " + str(bch_price) + " " + currency,
         parse_mode=ParseMode.MARKDOWN,
-    )
-
-
-#########################
-# Playmo.gg integration #
-#########################
-def playmo_get_game_overview(bot, update, args):
-    # check args[0] here
-    game_details = get_game_overview(int(args[0]))
-    title = game_details.get("title")
-    fee = game_details.get("entrance_fee")
-    players = game_details.get("players")
-    max_players = game_details.get("max_players")
-    fee_usd = round(fee * get_rate(update) / 100000, 2)
-    start = game_countdown(game_details.get("start"))
-    text = f"Game: {title}\nEntrance fee: {fee} mo (~{fee_usd} USD)"
-    text += f"\nPlayers: {players}/{max_players}"
-    if start[0] < 0 or start[1] < 0 or start[2] < 0:
-        text += "\nDeadline expired"
-    else:
-        text += f"\nStart: {start[0]} days, {start[1]} hours, {start[2]} mins"
-    # add link to game
-    text += f"\n[See on Playmo](https://playmo.gg/game/{args[0]})"
-    return bot.send_message(
-        chat_id=update.effective_chat.id,
-        text=text,
-        parse_mode=ParseMode.MARKDOWN,
-        disable_web_page_preview=True,
     )
