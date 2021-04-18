@@ -7,7 +7,6 @@
 </div>
 
 <div align="center">
-  <img src="https://travis-ci.com/merc1er/bchtipbot.svg?token=ikFpFZzenHdDVbwQsxJX&branch=master" alt="Build">
   <img src="https://github.com/merc1er/bchtipbot/workflows/Run%20tests/badge.svg" alt="tests">
   <a href="https://www.codefactor.io/repository/github/merc1er/bchtipbot"><img src="https://www.codefactor.io/repository/github/merc1er/bchtipbot/badge" alt="CodeFactor"></a>
   <a href="https://codecov.io/gh/merc1er/bchtipbot"><img src="https://codecov.io/gh/merc1er/bchtipbot/branch/master/graph/badge.svg?token=CIQBH8S6HA"></a>
