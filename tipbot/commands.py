@@ -100,14 +100,12 @@ def withdraw(bot, update, args):
     wif = get_wif(update.message.from_user.username)
     key = Key(wif)
 
-    if args[0] == "all":
-        sent_amount = 1000
-        currency = "satoshi"
-    else:
+    sent_amount = 0
+    currency = "usd"
+    if args[0] != "all":
         amount = args[0].replace("$", "")
         if not checks.amount_is_valid(amount):
             return update.message.reply_text(amount + " is not a valid amount")
-        currency = "usd"
         sent_amount = float(amount) - 0.01  # after 1 cent fee
 
     outputs = [
@@ -116,7 +114,7 @@ def withdraw(bot, update, args):
     key.get_unspents()
     try:
         if args[0] == "all":
-            tx_id = key.send(outputs, fee=1, leftover=address)
+            tx_id = key.send([], fee=1, leftover=address)
         else:
             tx_id = key.send(outputs, fee=1)
     except Exception:
