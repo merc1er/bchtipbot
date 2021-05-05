@@ -99,9 +99,3 @@ To deploy your own bot, add the environment variables found in the section above
 - Implement more tests
 - Allow users without a username to use the bot
 - Sometimes the bot doesn't get triggered with the `/tip` command while not admin
-
----
-
-### Support me
-
-Bitcoin Cash: `bitcoincash:qrzd59chq6052tj9fdsllnc55wk5jwpjxqg4crtfwr`
