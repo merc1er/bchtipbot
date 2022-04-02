@@ -15,7 +15,7 @@ if DEBUG:
 
 
 def main():
-    """ Runs the bot """
+    """Runs the bot"""
     db.connect()
     db.create_tables([User], safe=True)
 

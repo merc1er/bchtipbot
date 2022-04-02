@@ -8,7 +8,7 @@ from rates import get_rate
 
 
 def start(bot, update):
-    """ Starts the bot.
+    """Starts the bot.
     Create a database entry for [username] unless it exists already.
     """
     if not checks.check_username(update):
@@ -43,7 +43,7 @@ def deposit(bot, update):
 
 
 def balance(bot, update, args):
-    """ Fetches and returns the balance (in USD) """
+    """Fetches and returns the balance (in USD)"""
     currency = args[0].lower() if args else "usd"
     if currency == "satoshis":  # in case user uses plural
         currency = "satoshi"
@@ -62,7 +62,8 @@ def balance(bot, update, args):
         balance = key.get_balance(currency)
     except KeyError:
         return update.message.reply_text(
-            currency + " is not a supported currency")
+            currency + " is not a supported currency"
+        )
 
     # display the message
     if currency == "usd":  # better display for USD (default)
@@ -75,7 +76,7 @@ def balance(bot, update, args):
 
 
 def withdraw(bot, update, args):
-    """ Withdraws BCH to user's wallet """
+    """Withdraws BCH to user's wallet"""
     if not checks.check_username(update):
         return
 
@@ -127,7 +128,7 @@ def withdraw(bot, update, args):
 
 
 def help_command(bot, update):
-    """ Displays the help text """
+    """Displays the help text"""
     return update.message.reply_text(
         """/start - Starts the bot
 /deposit - Displays your Bitcoin Cash address for top up
@@ -140,7 +141,7 @@ def help_command(bot, update):
 
 
 def tip(bot, update, args, satoshi=False):
-    """ Sends Bitcoin Cash on-chain """
+    """Sends Bitcoin Cash on-chain"""
     if not checks.check_username(update):
         return
 
@@ -227,7 +228,7 @@ def tip(bot, update, args, satoshi=False):
 
 
 def price(bot, update, args):
-    """ Fetches and returns the price of BCH """
+    """Fetches and returns the price of BCH"""
     currency = args[0].upper() if args else "USD"
 
     # fetches rate and rounds to appropriate decimal

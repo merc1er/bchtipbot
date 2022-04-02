@@ -4,7 +4,7 @@ from .models import db, User
 
 
 def create_user(username):
-    """ Checks if a Telegram user is present in the database.
+    """Checks if a Telegram user is present in the database.
     Returns True if a user is created, False otherwise.
     """
     db.connect(reuse_if_open=True)

@@ -174,7 +174,7 @@ CURRENCY_CODE = {
 
 
 def get_rate(update, currency="USD"):
-    """ Returns the BCH price fetching BitPay API
+    """Returns the BCH price fetching BitPay API
 
     API documentation:
     https://bitpay.com/api/#rest-api-resources-rates-fetch-the-rates-used-by-bitpay-for-a-specific-cryptocurrency
