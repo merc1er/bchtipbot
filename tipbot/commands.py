@@ -117,8 +117,11 @@ def withdraw(bot, update, args):
             tx_id = key.send([], fee=1, leftover=address)
         else:
             tx_id = key.send(outputs, fee=1)
-    except Exception:
-        return update.message.reply_text("Transaction failed!")
+    except Exception as e:
+        print("⚠️ ERROR:", e)
+        return update.message.reply_text(
+            f"Transaction failed due to the following error: {e}"
+        )
 
     return update.message.reply_text("Sent! Transaction ID: " + tx_id)
 
