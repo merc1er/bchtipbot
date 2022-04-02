@@ -46,7 +46,7 @@ For example: `/price` (defaults to USD), `/price eur`, `price BTC` and so on.
 Run the following commands:
 
 ```shell
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 python3 tipbot/app.py
 ```
 
