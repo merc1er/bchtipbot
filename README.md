@@ -7,7 +7,6 @@
 </div>
 
 <div align="center">
-  <img src="https://travis-ci.com/merc1er/bchtipbot.svg?token=ikFpFZzenHdDVbwQsxJX&branch=master" alt="Build">
   <img src="https://github.com/merc1er/bchtipbot/workflows/Run%20tests/badge.svg" alt="tests">
   <a href="https://www.codefactor.io/repository/github/merc1er/bchtipbot"><img src="https://www.codefactor.io/repository/github/merc1er/bchtipbot/badge" alt="CodeFactor"></a>
   <a href="https://codecov.io/gh/merc1er/bchtipbot"><img src="https://codecov.io/gh/merc1er/bchtipbot/branch/master/graph/badge.svg?token=CIQBH8S6HA"></a>
@@ -47,7 +46,7 @@ For example: `/price` (defaults to USD), `/price eur`, `price BTC` and so on.
 Run the following commands:
 
 ```shell
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 python3 tipbot/app.py
 ```
 
@@ -100,9 +99,3 @@ To deploy your own bot, add the environment variables found in the section above
 - Implement more tests
 - Allow users without a username to use the bot
 - Sometimes the bot doesn't get triggered with the `/tip` command while not admin
-
----
-
-### Support me
-
-Bitcoin Cash: `bitcoincash:qrzd59chq6052tj9fdsllnc55wk5jwpjxqg4crtfwr`

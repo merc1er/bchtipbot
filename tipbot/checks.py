@@ -16,7 +16,7 @@ def check_username(update):
 
 
 def amount_is_valid(amount):
-    """ Checks if [amount] is a valid BCH amount """
+    """Checks if [amount] is a valid BCH amount"""
     try:
         amount = float(amount)
         if amount <= 0:
@@ -28,7 +28,7 @@ def amount_is_valid(amount):
 
 
 def username_is_valid(username):
-    """ Checks if a Telegram username is valid """
+    """Checks if a Telegram username is valid"""
     if username[0] != "@":
         return False
     username = username[1:]  # remove the '@'

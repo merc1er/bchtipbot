@@ -3,7 +3,7 @@ from settings import ADMIN_LIST
 
 
 def is_admin(command):
-    """ Decorator to check if sender is admin """
+    """Decorator to check if sender is admin"""
     # check if admin here
 
     def wrapper(*args, **kwargs):
