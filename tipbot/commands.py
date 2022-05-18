@@ -115,9 +115,9 @@ def withdraw(bot, update, args):
     key.get_unspents()
     try:
         if args[0] == "all":
-            tx_id = key.send([], fee=1, leftover=address)
+            tx_id = key.send([], leftover=address)
         else:
-            tx_id = key.send(outputs, fee=1)
+            tx_id = key.send(outputs)
     except Exception as e:
         print("⚠️ ERROR:", e)
         return update.message.reply_text(
@@ -212,12 +212,11 @@ def tip(bot, update, args, satoshi=False):
         ]
 
     try:
-        key.send(outputs, fee=1)
-    except Exception:
-        return bot.send_message(
-            chat_id=update.effective_chat.id,
-            text="Transaction failed!",
-            parse_mode=ParseMode.MARKDOWN,
+        key.send(outputs)
+    except Exception as e:
+        print("⚠️ ERROR:", e)
+        return update.message.reply_text(
+            f"Transaction failed due to the following error: {e}"
         )
 
     if satoshi:
