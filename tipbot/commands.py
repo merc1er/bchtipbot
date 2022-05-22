@@ -1,3 +1,4 @@
+from time import sleep
 from bitcash import Key
 from telegram import ParseMode
 from db.get import get_address, get_wif
@@ -113,6 +114,7 @@ def withdraw(bot, update, args):
         (address, sent_amount, currency),
     ]
     key.get_unspents()
+    sleep(2)
     try:
         if args[0] == "all":
             tx_id = key.send([], leftover=address)
