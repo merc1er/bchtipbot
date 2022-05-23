@@ -71,6 +71,14 @@ coverage html
 
 then open the `htmlcov/index.html` page in a browser.
 
+##### Linting
+
+This project uses [`black`](https://github.com/psf/black) Python code formatter. Use the following command to format your code:
+
+```shell
+black .
+```
+
 ##### Customize the bot
 
 ⚠️ Add the following environment variables:
