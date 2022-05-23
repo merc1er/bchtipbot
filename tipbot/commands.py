@@ -35,8 +35,7 @@ def deposit(update: Update, _: CallbackContext):
     if not checks.check_username(update):
         return
     if update.message.chat.type != "private":  # check if in DM
-        return update.send_message(
-            chat_id=update.effective_chat.id,
+        return update.message.reply_html(
             text="Private message me to see your deposit address",
         )
 
@@ -55,8 +54,7 @@ def balance(update, context: CallbackContext):
     if not checks.check_username(update):
         return
     if update.message.chat.type != "private":  # check if in DM
-        return update.send_message(
-            chat_id=update.effective_chat.id,
+        return update.message.reply_html(
             text="Private message me to see your balance",
         )
 
@@ -83,8 +81,7 @@ def withdraw(update, context: CallbackContext):
         return
 
     if update.message.chat.type != "private":  # check if in DM
-        return update.send_message(
-            chat_id=update.effective_chat.id,
+        return update.message.reply_html(
             text="Private message me to withdraw your money",
         )
 
@@ -196,6 +193,7 @@ def tip(update, context: CallbackContext, satoshi=False):
 
     key = Key(sender_wif)
     balance = key.get_balance("usd")
+    sleep(2)
     # checks the balance
     if float(amount) > float(balance) and not satoshi:
         return update.message.reply_text(
@@ -228,7 +226,7 @@ def tip(update, context: CallbackContext, satoshi=False):
         message = "You sent " + amount + " satoshis to " + recipient_username
     else:
         message = "You sent $" + amount + " to " + recipient_username
-    return update.send_message(chat_id=update.effective_chat.id, text=message)
+    return update.message.reply_html(text=message)
 
 
 def price(update, context: CallbackContext):
