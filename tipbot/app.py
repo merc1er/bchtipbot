@@ -26,14 +26,14 @@ def main():
     updater.dispatcher.add_handler(CommandHandler("help", help_command))
     updater.dispatcher.add_handler(CommandHandler("deposit", deposit))
     updater.dispatcher.add_handler(
-        CommandHandler("balance", balance, pass_args=True)
+        CommandHandler("balance", balance)
     )
     updater.dispatcher.add_handler(
-        CommandHandler("withdraw", withdraw, pass_args=True)
+        CommandHandler("withdraw", withdraw)
     )
-    updater.dispatcher.add_handler(CommandHandler("tip", tip, pass_args=True))
+    updater.dispatcher.add_handler(CommandHandler("tip", tip))
     updater.dispatcher.add_handler(
-        CommandHandler("price", price, pass_args=True)
+        CommandHandler("price", price)
     )
     # admin commands
     updater.dispatcher.add_handler(CommandHandler("stats", stats))

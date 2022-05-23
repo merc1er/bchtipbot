@@ -1,6 +1,9 @@
 from time import sleep
+
 from bitcash import Key
-from telegram import ParseMode
+from telegram import Update
+from telegram.ext import CallbackContext
+
 from db.get import get_address, get_wif
 from db.init import create_user
 import checks
@@ -8,7 +11,7 @@ from settings import FEE_ADDRESS, FEE_PERCENTAGE
 from rates import get_rate
 
 
-def start(bot, update):
+def start(update: Update, _: CallbackContext):
     """Starts the bot.
     Create a database entry for [username] unless it exists already.
     """
@@ -24,7 +27,7 @@ def start(bot, update):
         return update.message.reply_text("Hello again, " + first_name + info)
 
 
-def deposit(bot, update):
+def deposit(update: Update, _: CallbackContext):
     """
     Fetches and returns the Bitcoin Cash address saved in the db if the command
     was sent in a direct message. Asks to send DM otherwise.
@@ -32,7 +35,7 @@ def deposit(bot, update):
     if not checks.check_username(update):
         return
     if update.message.chat.type != "private":  # check if in DM
-        return bot.send_message(
+        return update.send_message(
             chat_id=update.effective_chat.id,
             text="Private message me to see your deposit address",
         )
@@ -43,16 +46,16 @@ def deposit(bot, update):
     return update.message.reply_html("<b>{}</b>".format(address))
 
 
-def balance(bot, update, args):
+def balance(update, context: CallbackContext):
     """Fetches and returns the balance (in USD)"""
-    currency = args[0].lower() if args else "usd"
+    currency = context.args[0].lower() if context.args else "usd"
     if currency == "satoshis":  # in case user uses plural
         currency = "satoshi"
 
     if not checks.check_username(update):
         return
     if update.message.chat.type != "private":  # check if in DM
-        return bot.send_message(
+        return update.send_message(
             chat_id=update.effective_chat.id,
             text="Private message me to see your balance",
         )
@@ -76,18 +79,18 @@ def balance(bot, update, args):
     return update.message.reply_text(message)
 
 
-def withdraw(bot, update, args):
+def withdraw(update, context: CallbackContext):
     """Withdraws BCH to user's wallet"""
     if not checks.check_username(update):
         return
 
     if update.message.chat.type != "private":  # check if in DM
-        return bot.send_message(
+        return update.send_message(
             chat_id=update.effective_chat.id,
             text="Private message me to withdraw your money",
         )
 
-    if len(args) != 2:
+    if len(context.args) != 2:
         message = (
             "Usage: /withdraw [amount] [address]\n\n"
             "You may also withdraw everything at once using:"
@@ -95,7 +98,7 @@ def withdraw(bot, update, args):
         )
         return update.message.reply_text(message)
 
-    address = checks.check_address(update, args[1])
+    address = checks.check_address(update, context.args[1])
     if not address:  # does not send anything if address is False
         return
 
@@ -104,8 +107,8 @@ def withdraw(bot, update, args):
 
     sent_amount = 0
     currency = "usd"
-    if args[0] != "all":
-        amount = args[0].replace("$", "")
+    if context.args[0] != "all":
+        amount = context.args[0].replace("$", "")
         if not checks.amount_is_valid(amount):
             return update.message.reply_text(amount + " is not a valid amount")
         sent_amount = float(amount) - 0.01  # after 1 cent fee
@@ -116,7 +119,7 @@ def withdraw(bot, update, args):
     key.get_unspents()
     sleep(2)
     try:
-        if args[0] == "all":
+        if context.args[0] == "all":
             tx_id = key.send([], leftover=address)
         else:
             tx_id = key.send(outputs)
@@ -129,7 +132,7 @@ def withdraw(bot, update, args):
     return update.message.reply_text("Sent! Transaction ID: " + tx_id)
 
 
-def help_command(bot, update):
+def help_command(update: Update, _: CallbackContext):
     """Displays the help text"""
     return update.message.reply_text(
         """/start - Starts the bot
@@ -142,10 +145,12 @@ def help_command(bot, update):
     )
 
 
-def tip(bot, update, args, satoshi=False):
+def tip(update, context: CallbackContext, satoshi=False):
     """Sends Bitcoin Cash on-chain"""
     if not checks.check_username(update):
         return
+
+    args = context.args
 
     try:  # in case the user wants to tip satoshis
         if args[1] == "satoshi" or args[1] == "satoshis":
@@ -225,12 +230,12 @@ def tip(bot, update, args, satoshi=False):
         message = "You sent " + amount + " satoshis to " + recipient_username
     else:
         message = "You sent $" + amount + " to " + recipient_username
-    return bot.send_message(chat_id=update.effective_chat.id, text=message)
+    return update.send_message(chat_id=update.effective_chat.id, text=message)
 
 
-def price(bot, update, args):
+def price(update, context: CallbackContext):
     """Fetches and returns the price of BCH"""
-    currency = args[0].upper() if args else "USD"
+    currency = context.args[0].upper() if context.args else "USD"
 
     # fetches rate and rounds to appropriate decimal
     if currency == "BTC":
@@ -238,8 +243,4 @@ def price(bot, update, args):
     else:
         bch_price = round(get_rate(update, currency))
 
-    return bot.send_message(
-        chat_id=update.effective_chat.id,
-        text="1 BCH = " + str(bch_price) + " " + currency,
-        parse_mode=ParseMode.MARKDOWN,
-    )
+    return update.message.reply_text(text="1 BCH = " + str(bch_price) + " " + currency)
