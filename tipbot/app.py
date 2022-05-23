@@ -35,15 +35,14 @@ def main():
     if DEBUG:
         updater.start_polling()
     else:
-        # Port is given by Heroku
-        PORT = os.environ.get("PORT")
-        try:
-            NAME = os.environ.get("NAME")
-        except KeyError:
-            NAME = "bchtipbot"
+        NAME = os.environ.get("NAME", "bchtipbot")
         # Start the webhook
-        updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path=TOKEN)
-        updater.bot.setWebhook("https://{}.herokuapp.com/{}".format(NAME, TOKEN))
+        updater.start_webhook(
+            listen="0.0.0.0",
+            port=int(os.environ.get("PORT", "8443")),
+            url_path=TOKEN,
+            webhook_url="https://{}.herokuapp.com/{}".format(NAME, TOKEN),
+        )
 
     updater.idle()
 
