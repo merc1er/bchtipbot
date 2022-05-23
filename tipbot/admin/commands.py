@@ -7,7 +7,7 @@ def is_admin(command):
     # check if admin here
 
     def wrapper(*args, **kwargs):
-        if args[1].message.from_user.username in ADMIN_LIST:
+        if args[0].message.from_user.username in ADMIN_LIST:
             return command(*args, **kwargs)
         else:
             return False
@@ -16,5 +16,5 @@ def is_admin(command):
 
 
 @is_admin
-def stats(bot, update):
+def stats(update, context):
     return update.message.reply_text("Users: " + str(count_users()))
