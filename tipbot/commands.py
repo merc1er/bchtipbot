@@ -65,9 +65,7 @@ def balance(update, context: CallbackContext):
     try:
         balance = key.get_balance(currency)
     except KeyError:
-        return update.message.reply_text(
-            currency + " is not a supported currency"
-        )
+        return update.message.reply_text(currency + " is not a supported currency")
 
     # display the message
     if currency == "usd":  # better display for USD (default)

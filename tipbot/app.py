@@ -25,16 +25,10 @@ def main():
     updater.dispatcher.add_handler(CommandHandler("start", start))
     updater.dispatcher.add_handler(CommandHandler("help", help_command))
     updater.dispatcher.add_handler(CommandHandler("deposit", deposit))
-    updater.dispatcher.add_handler(
-        CommandHandler("balance", balance)
-    )
-    updater.dispatcher.add_handler(
-        CommandHandler("withdraw", withdraw)
-    )
+    updater.dispatcher.add_handler(CommandHandler("balance", balance))
+    updater.dispatcher.add_handler(CommandHandler("withdraw", withdraw))
     updater.dispatcher.add_handler(CommandHandler("tip", tip))
-    updater.dispatcher.add_handler(
-        CommandHandler("price", price)
-    )
+    updater.dispatcher.add_handler(CommandHandler("price", price))
     # admin commands
     updater.dispatcher.add_handler(CommandHandler("stats", stats))
 
@@ -49,9 +43,7 @@ def main():
             NAME = "bchtipbot"
         # Start the webhook
         updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path=TOKEN)
-        updater.bot.setWebhook(
-            "https://{}.herokuapp.com/{}".format(NAME, TOKEN)
-        )
+        updater.bot.setWebhook("https://{}.herokuapp.com/{}".format(NAME, TOKEN))
 
     updater.idle()
 

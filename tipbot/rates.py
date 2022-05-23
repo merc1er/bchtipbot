@@ -182,9 +182,7 @@ def get_rate(update, currency="USD"):
     currency = currency.upper()
 
     if currency not in CURRENCY_CODE:
-        return update.message.reply_text(
-            f"{currency} is not a supported " "currency."
-        )
+        return update.message.reply_text(f"{currency} is not a supported " "currency.")
 
     r = requests.get(RATE_API)
     if r.status_code != 200:  # pragma: no cover
