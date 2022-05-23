@@ -19,7 +19,7 @@ except KeyError:
 
 
 # Your output BCH address
-FEE_ADDRESS = "bitcoincash:qpy0ujwv5w2g4wktcwf4s9rzyxvepvleg5k623cusz"
+FEE_ADDRESS = "bitcoincash:qqgw6z9n7k8pvfy5wdxvh8ake23vl072qup0v6zwpv"
 # The fee you want to charge (0.01 is 1%)
 FEE_PERCENTAGE = 0.01
 
