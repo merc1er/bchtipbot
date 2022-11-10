@@ -237,6 +237,6 @@ def price(update, context: CallbackContext):
     if currency == "BTC":
         bch_price = round(get_rate(update, currency), 4)
     else:
-        bch_price = round(get_rate(update, currency))
+        bch_price = round(get_rate(update, currency), 2)
 
     return update.message.reply_text(text="1 BCH = " + str(bch_price) + " " + currency)
