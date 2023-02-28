@@ -1,5 +1,5 @@
 python-telegram-bot==13.11
 git+https://github.com/pybitcash/bitcash.git@0f8b342826d5ac5062fa6c2e30c20bb09d53f754
-peewee==3.14.0
+peewee==3.16.0
 requests==2.28.1
 black
