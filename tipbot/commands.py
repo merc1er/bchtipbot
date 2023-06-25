@@ -142,7 +142,10 @@ def help_command(update: Update, _: CallbackContext):
 /withdraw - Withdraw your funds. Usage: /withdraw [amount] [address]
 /help - Lists all commands
 /tip - Sends a tip. Usage: /tip [amount] [@username]
-/price - Displays the current price of Bitcoin Cash"""
+/price - Displays the current price of Bitcoin Cash
+
+Note: you may need to use the bot username in some cases (e.g.: `/tip@BCHtipbot 0.05 @merc1er`.
+"""
     )
 
 
@@ -161,7 +164,7 @@ def tip(update, context: CallbackContext, satoshi=False):
         pass
 
     if len(args) < 2 and not update.message.reply_to_message:
-        return update.message.reply_text("Usage: /tip [amount] [username]")
+        return update.message.reply_text("Usage: `/tip [amount] [username]` \n or `/tip@BCHtipbot 0.05 @merc1er`")
 
     if "@" in args[0]:
         # this swaps args[0] and args[1] in case user input username before
