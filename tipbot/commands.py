@@ -125,7 +125,7 @@ def withdraw(update, context: CallbackContext):
         else:
             tx_id = key.send(outputs)
     except Exception as e:
-        logger.exception()
+        logger.exception(f"Transaction failed: {str(e)}")
         return update.message.reply_text(
             f"Transaction failed due to the following error: {e}"
         )
@@ -226,7 +226,7 @@ def tip(update, context: CallbackContext, satoshi=False):
     try:
         key.send(outputs)
     except Exception as e:
-        logger.exception()
+        logger.exception(f"Transaction failed: {str(e)}")
         return update.message.reply_text(
             f"Transaction failed due to the following error: {e}"
         )
