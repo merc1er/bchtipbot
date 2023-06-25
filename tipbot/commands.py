@@ -1,3 +1,4 @@
+import logging
 from time import sleep
 
 from bitcash import Key
@@ -11,8 +12,12 @@ from settings import FEE_ADDRESS, FEE_PERCENTAGE
 from rates import get_rate
 
 
+logger = logging.getLogger(__name__)
+
+
 def start(update: Update, _: CallbackContext):
-    """Starts the bot.
+    """
+    Starts the bot.
     Create a database entry for [username] unless it exists already.
     """
     if not checks.check_username(update):
@@ -22,6 +27,7 @@ def start(update: Update, _: CallbackContext):
 
     created = create_user(update.message.from_user.username)
     if created:
+        logger.info(f"New user created! Username: {update.message.from_user.username}.")
         return update.message.reply_text("Hello " + first_name + info)
     else:
         return update.message.reply_text("Hello again, " + first_name + info)
@@ -119,7 +125,7 @@ def withdraw(update, context: CallbackContext):
         else:
             tx_id = key.send(outputs)
     except Exception as e:
-        print("⚠️ ERROR:", e)
+        logger.exception()
         return update.message.reply_text(
             f"Transaction failed due to the following error: {e}"
         )
@@ -217,7 +223,7 @@ def tip(update, context: CallbackContext, satoshi=False):
     try:
         key.send(outputs)
     except Exception as e:
-        print("⚠️ ERROR:", e)
+        logger.exception()
         return update.message.reply_text(
             f"Transaction failed due to the following error: {e}"
         )
