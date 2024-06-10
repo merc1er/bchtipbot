@@ -1,4 +1,10 @@
+import json
+import logging
+
 import requests
+
+
+logger = logging.getLogger(__name__)
 
 
 RATE_API = "https://bitpay.com/rates/BCH/"
@@ -173,7 +179,7 @@ CURRENCY_CODE = {
 }
 
 
-def get_rate(update, currency="USD"):
+def get_rate(update, currency: str = "USD") -> float:
     """Returns the BCH price fetching BitPay API
 
     API documentation:
@@ -184,11 +190,18 @@ def get_rate(update, currency="USD"):
     if currency not in CURRENCY_CODE:
         return update.message.reply_text(f"{currency} is not a supported " "currency.")
 
-    r = requests.get(RATE_API)
-    if r.status_code != 200:  # pragma: no cover
+    try:
+        response = requests.get(RATE_API)
+        response.raise_for_status()
+        data = response.json()["data"]
+        rate = data[CURRENCY_CODE[currency]]["rate"]
+        return rate
+    except requests.exceptions.RequestException as e:
+        logger.exception("Failed to fetch rate")
+        if isinstance(e, requests.exceptions.HTTPError):
+            logger.info(response.text)
         return update.message.reply_text(f"Unable to contact {RATE_API}")
-
-    data = r.json()["data"]
-    rate = data[CURRENCY_CODE[currency]]["rate"]
-
-    return rate
+    except (json.JSONDecodeError, KeyError):
+        message = f"Unable to parse rate data: {response.text}"
+        logger.exception(message)
+        return update.message.reply_text(message)
