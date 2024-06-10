@@ -33,8 +33,8 @@ class TestRate(unittest.TestCase):
 
     @patch("tipbot.rates.requests.get")
     def test_get_rate_http_error(self, mock_requests_get):
-        mock_requests_get.side_effect = requests.exceptions.HTTPError
         mock_response = MagicMock()
+        mock_response.raise_for_status.side_effect = requests.exceptions.HTTPError
         mock_response.text = "Error message"
         mock_requests_get.return_value = mock_response
         mock_update = MagicMock()
