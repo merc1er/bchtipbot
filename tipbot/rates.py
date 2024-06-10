@@ -188,7 +188,7 @@ def get_rate(update, currency: str = "USD") -> float:
     currency = currency.upper()
 
     if currency not in CURRENCY_CODE:
-        return update.message.reply_text(f"{currency} is not a supported " "currency.")
+        return update.message.reply_text(f"{currency} is not a supported currency.")
 
     try:
         response = requests.get(RATE_API)
