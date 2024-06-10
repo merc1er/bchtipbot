@@ -1,4 +1,4 @@
-python-telegram-bot==13.11
+python-telegram-bot==21.3
 bitcash==1.0.2
 peewee==3.14.3
 requests==2.32.3
