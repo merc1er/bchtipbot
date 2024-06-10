@@ -164,7 +164,9 @@ def tip(update, context: CallbackContext, satoshi=False):
         pass
 
     if len(args) < 2 and not update.message.reply_to_message:
-        return update.message.reply_text("Usage: `/tip [amount] [username]` \n or `/tip@BCHtipbot 0.05 @merc1er`")
+        return update.message.reply_text(
+            "Usage: `/tip [amount] [username]` \n or `/tip@BCHtipbot 0.05 @merc1er`"
+        )
 
     if "@" in args[0]:
         # this swaps args[0] and args[1] in case user input username before
