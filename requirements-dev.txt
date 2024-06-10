@@ -5,3 +5,4 @@ requests==2.32.3
 
 # Dev only packages.
 black==24.4.2
+coverage==7.5.3
