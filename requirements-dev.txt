@@ -1,6 +1,6 @@
 python-telegram-bot==13.11
 bitcash==1.0.2
-peewee==3.14.3
+peewee==3.17.5
 requests==2.32.3
 
 # Dev only packages.
